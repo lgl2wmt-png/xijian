@@ -1,0 +1,12 @@
+services:
+  xijian:
+    build: .
+    ports:
+      - "8787:8787"
+    volumes:
+      - xijian-data:/app/server/data
+    environment:
+      - PORT=8787
+
+volumes:
+  xijian-data:
