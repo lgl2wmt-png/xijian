@@ -12,18 +12,16 @@ import { apiUrl, wsUrl } from '../lib/apiBase'
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const url = apiUrl(path)
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  }
   // localtunnel (loca.lt) shows an interstitial unless this header is present
-  const tunnelHeaders =
-    /\.loca\.lt$/i.test(new URL(url, 'http://localhost').host)
-      ? { 'Bypass-Tunnel-Reminder': 'true' }
-      : {}
+  if (/\.loca\.lt$/i.test(new URL(url, 'http://localhost').host)) {
+    headers['Bypass-Tunnel-Reminder'] = 'true'
+  }
   const res = await fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...tunnelHeaders,
-      ...(init?.headers || {}),
-    },
     ...init,
+    headers: { ...headers, ...(init?.headers as Record<string, string> | undefined) },
   })
   if (!res.ok) {
     const body = await res.json().catch(() => ({}))
