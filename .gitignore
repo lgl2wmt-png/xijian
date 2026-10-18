@@ -35,6 +35,11 @@ android/.idea/
 *.apk
 *.aab
 dev-dist/
+tools/ffmpeg/
+docs/promo/out/raw/
+docs/promo/out/frames/
+docs/promo/out/concat.txt
+docs/promo/out/*.webm
 
 # iOS / Xcode local artifacts (keep ios/ App sources)
 ios/App/Pods/

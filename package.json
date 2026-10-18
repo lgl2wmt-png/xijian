@@ -19,6 +19,8 @@
     "cap:open": "npx cap open android",
     "cap:open:ios": "npx cap open ios",
     "deploy:vercel": "vercel --prod",
+    "promo:video": "node scripts/make-promo-video.mjs",
+    "promo:preview": "vite preview --host 127.0.0.1 --port 4173",
     "test:e2e": "playwright test"
   },
   "dependencies": {
