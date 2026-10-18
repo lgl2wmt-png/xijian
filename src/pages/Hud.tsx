@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { init, use, type EChartsCoreOption } from 'echarts/core'
+import { init, use as registerEcharts, type EChartsCoreOption } from 'echarts/core'
 import { BarChart, LineChart, PieChart, RadarChart } from 'echarts/charts'
 import {
   GridComponent,
@@ -15,7 +15,7 @@ import { useFetch } from '../hooks/useFetch'
 import { toWebp } from '../lib/media'
 import type { HudZone, StageStatus } from '../types'
 
-use([
+registerEcharts([
   BarChart,
   LineChart,
   PieChart,
