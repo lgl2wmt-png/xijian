@@ -56,12 +56,13 @@ npm run dev
 | 像素沙盘 | http://localhost:5173/sandbox |
 
 ```bash
-npm run build      # 生产构建
+npm run build      # 生产构建（PWA：dist/ + sw.js）
 npm run lint       # 静态检查
 docker compose up --build   # 单端口一体体验 → :8787
+npx vercel --prod  # 静态 PWA 上 Vercel（需登录；见 docs/DEPLOY.md）
 ```
 
-更完整的部署说明见 [docs/DEPLOY.md](./docs/DEPLOY.md)。
+更完整的部署说明见 [docs/DEPLOY.md](./docs/DEPLOY.md)。iPhone：Safari → 添加到主屏幕。
 
 ## 架构
 
@@ -78,7 +79,7 @@ docker compose up --build   # 单端口一体体验 → :8787
 
 - **前端：** Vite · React 19 · TypeScript · Tailwind CSS 4 · ECharts · React Router
 - **后端：** Express 5 · better-sqlite3 · ws
-- **工程：** GitHub Actions CI · Docker Compose
+- **工程：** GitHub Actions CI · Docker Compose · Capacitor · PWA（Vercel）
 - **许可：** [MIT](./LICENSE)
 
 ## 开源协作

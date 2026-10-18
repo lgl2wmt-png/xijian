@@ -18,6 +18,7 @@
     "cap:sync": "npm run build && npx cap sync",
     "cap:open": "npx cap open android",
     "cap:open:ios": "npx cap open ios",
+    "deploy:vercel": "vercel --prod",
     "test:e2e": "playwright test"
   },
   "dependencies": {

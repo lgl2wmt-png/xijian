@@ -55,14 +55,16 @@ npx cap open ios   # 或 npm run cap:open:ios
 
 ## PWA（无需 Android Studio / Xcode）
 
-`vite-plugin-pwa` 已接入：`manifest` + Service Worker 预缓存。
+`vite-plugin-pwa` 已接入：`manifest` + Service Worker。推荐部署到 **Vercel**（HTTPS）：
 
 ```bash
 npm run build
-npm run preview   # 或部署 dist + API
+npx vercel --prod
+# 或网页 Import GitHub，详见 docs/DEPLOY.md
 ```
 
-手机浏览器打开站点 → 「添加到主屏幕」→ 全屏类 App 体验。
+**iPhone：** Safari 打开站点 → 分享 → **添加到主屏幕** → 全屏无地址栏。  
+**Android：** Chrome → 安装应用 / 添加到主屏幕。
 
 ## 安全区
 
