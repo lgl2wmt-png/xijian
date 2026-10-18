@@ -1,9 +1,29 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import * as echarts from 'echarts'
+import { init, use, type EChartsCoreOption } from 'echarts/core'
+import { BarChart, LineChart, PieChart, RadarChart } from 'echarts/charts'
+import {
+  GridComponent,
+  LegendComponent,
+  RadarComponent,
+  TooltipComponent,
+} from 'echarts/components'
+import { CanvasRenderer } from 'echarts/renderers'
 import { api, siteWsUrl } from '../api/client'
 import { useFetch } from '../hooks/useFetch'
 import type { HudZone, StageStatus } from '../types'
+
+use([
+  BarChart,
+  LineChart,
+  PieChart,
+  RadarChart,
+  GridComponent,
+  LegendComponent,
+  RadarComponent,
+  TooltipComponent,
+  CanvasRenderer,
+])
 
 const zoneColor: Record<StageStatus, string> = {
   done: 'rgba(21, 128, 61, 0.45)',
@@ -17,7 +37,7 @@ export function Hud() {
   const [panelOpen, setPanelOpen] = useState(true)
   const [live, setLive] = useState(true)
 
-  const expenseOption = useMemo<echarts.EChartsOption>(
+  const expenseOption = useMemo<EChartsCoreOption>(
     () => ({
       backgroundColor: 'transparent',
       grid: { top: 8, left: 40, right: 8, bottom: 24 },
@@ -43,7 +63,7 @@ export function Hud() {
     [data?.expenses],
   )
 
-  const qualityOption = useMemo<echarts.EChartsOption>(
+  const qualityOption = useMemo<EChartsCoreOption>(
     () => ({
       backgroundColor: 'transparent',
       radar: {
@@ -70,7 +90,7 @@ export function Hud() {
     [data?.quality],
   )
 
-  const healthOption = useMemo<echarts.EChartsOption>(
+  const healthOption = useMemo<EChartsCoreOption>(
     () => ({
       backgroundColor: 'transparent',
       grid: { top: 24, left: 36, right: 12, bottom: 24 },
@@ -114,7 +134,7 @@ export function Hud() {
   )
 
   const completion = data?.project.completion ?? 0
-  const ringOption = useMemo<echarts.EChartsOption>(
+  const ringOption = useMemo<EChartsCoreOption>(
     () => ({
       backgroundColor: 'transparent',
       series: [
@@ -418,12 +438,12 @@ function Widget({ title, children }: { title: string; children: ReactNode }) {
   )
 }
 
-function ChartBox({ option }: { option: echarts.EChartsOption }) {
+function ChartBox({ option }: { option: EChartsCoreOption }) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!ref.current) return
-    const chart = echarts.init(ref.current, undefined, { renderer: 'canvas' })
+    const chart = init(ref.current, undefined, { renderer: 'canvas' })
     chart.setOption(option)
     const onResize = () => chart.resize()
     window.addEventListener('resize', onResize)

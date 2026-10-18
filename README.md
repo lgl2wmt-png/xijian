@@ -23,9 +23,20 @@
 
 ## 截图
 
-> 建议本地跑通后，将首页 / 星图 / HUD / 沙盘截图放到 `docs/screenshots/`，再在此引用：
->
-> `![首页](docs/screenshots/home.png)`
+| 首页 | 决策星图 |
+|:---:|:---:|
+| ![首页](docs/screenshots/home.png) | ![星图](docs/screenshots/galaxy.png) |
+
+| 智慧工地 HUD | 像素沙盘 |
+|:---:|:---:|
+| ![HUD](docs/screenshots/hud.png) | ![沙盘](docs/screenshots/sandbox.png) |
+
+更多：`cases` / `designers` / `progress` 同目录。重新生成：
+
+```bash
+npm run dev          # 另开终端
+npm run screenshots  # Playwright → docs/screenshots/
+```
 
 ## 快速开始
 

@@ -7,6 +7,13 @@
 - GitHub Actions CI（lint / build / API smoke / Docker build）
 - README 徽章与部署文档 `docs/DEPLOY.md`
 - 加固 `.gitignore`（token、密钥、本地 zip 等）
+- Playwright 自动截图：`npm run screenshots` → `docs/screenshots/`
+- README 挂载核心页面截图
+
+### 优化
+
+- ECharts 改为按需 `use()` 注册图表组件；`manualChunks` 拆出 `echarts` / `react-vendor`
+- HUD 懒加载后首屏不再背负图表库（echarts chunk ≈ 190 kB gzip，仅进入 HUD 时加载）
 
 ## [0.4.0] — 2026-10-18
 
