@@ -52,16 +52,20 @@ npx vercel --prod   # 生产
 
 > Android：Chrome 菜单 → 「安装应用」或「添加到主屏幕」。
 
-### API 说明
+### API / Mock 说明
 
-本仓库后端是 Express + SQLite + WebSocket，**不适合**直接当 Vercel Serverless 跑。常见组合：
+**默认前端走 Mock**（`VITE_USE_MOCK` 未设为 `false`）：案例、设计师、进度、星图等均在浏览器内返回假数据，**不需要** localtunnel / 公网 API，Vercel 单独部署即可完整浏览。
 
-| 前端 | 后端 |
+接真实后端时：
+
+1. 环境变量 `VITE_USE_MOCK=false`
+2. 设置 `VITE_API_BASE` 为公网 API（Express + SQLite 不适合跑在 Vercel Serverless）
+
+| 前端 | 数据 |
 |------|------|
-| Vercel（本 PWA） | Railway / Render / VPS 上 `docker compose` |
-| 同机 Docker | Express 同时托管 `dist` |
-
-后端就绪后，在 Vercel 配置 `VITE_API_BASE` 并重新部署。
+| Vercel 默认 | 前端 Mock |
+| Vercel + 自建 API | `VITE_USE_MOCK=false` + `VITE_API_BASE` |
+| Docker 一体 | Express 托管 `dist` + 真实 SQLite |
 
 ## 仅前端本地预览
 

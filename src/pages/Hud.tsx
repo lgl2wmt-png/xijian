@@ -9,7 +9,7 @@ import {
   TooltipComponent,
 } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
-import { api, siteWsUrl } from '../api/client'
+import { api, siteWsUrl, useMockApi } from '../api/client'
 import { useIsMobile } from '../hooks/useMediaQuery'
 import { useFetch } from '../hooks/useFetch'
 import { toWebp } from '../lib/media'
@@ -175,8 +175,13 @@ export function Hud() {
   )
 
   useEffect(() => {
-    if (!data) return
-    const ws = new WebSocket(siteWsUrl(data.project.id))
+    if (!data || useMockApi) {
+      if (useMockApi) setLive(false)
+      return
+    }
+    const url = siteWsUrl(data.project.id)
+    if (!url) return
+    const ws = new WebSocket(url)
     ws.onmessage = (ev) => {
       try {
         const msg = JSON.parse(ev.data) as { type: string; ts?: string; message?: string }

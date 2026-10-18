@@ -9,16 +9,19 @@ import type {
   StyleCard,
 } from '../types'
 import { apiUrl, wsUrl } from '../lib/apiBase'
+import { mockApi } from './mockApi'
+
+/**
+ * 默认走前端 Mock（Vercel 静态部署无需后端）。
+ * 接真实 Express：`.env` 设 `VITE_USE_MOCK=false`，并配置 `VITE_API_BASE`（或同源代理）。
+ */
+export const useMockApi = import.meta.env.VITE_USE_MOCK !== 'false'
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const url = apiUrl(path)
   const headers = new Headers(init?.headers)
   if (!headers.has('Content-Type')) {
     headers.set('Content-Type', 'application/json')
-  }
-  // localtunnel (loca.lt) shows an interstitial unless this header is present
-  if (/\.loca\.lt$/i.test(new URL(url, 'http://localhost').host)) {
-    headers.set('Bypass-Tunnel-Reminder', 'true')
   }
   const res = await fetch(url, { ...init, headers })
   if (!res.ok) {
@@ -28,7 +31,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>
 }
 
-export const api = {
+const liveApi = {
   health: () => request<{ ok: boolean }>('/api/health'),
   styles: () => request<StyleCard[]>('/api/styles'),
   cases: (style?: string) =>
@@ -76,6 +79,9 @@ export const api = {
     }),
 }
 
+export const api = useMockApi ? mockApi : liveApi
+
 export function siteWsUrl(projectId = 'p1') {
+  if (useMockApi) return ''
   return wsUrl(`/ws?project=${projectId}`)
 }
