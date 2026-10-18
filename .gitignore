@@ -14,8 +14,17 @@ dist-ssr
 .env
 .env.*
 !.env.example
+*.pem
+*.p12
+*.key
+token.txt
+**/secrets/**
 server/data/*.sqlite
 server/data/*.sqlite-*
+server/data/
+coverage/
+*.zip
+!docs/**/*.zip
 
 # Editor directories and files
 .vscode/*

@@ -1,91 +1,88 @@
 # 栖见 · Xijian
 
-按**用户旅程**组织的开源家装平台（React 前端 + Express/SQLite 后端 + 智慧工地 HUD）。
+[![CI](https://github.com/lgl2wmt-png/xijian/actions/workflows/ci.yml/badge.svg)](https://github.com/lgl2wmt-png/xijian/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-0B6E6A.svg)](./LICENSE)
+[![Release](https://img.shields.io/github/v/release/lgl2wmt-png/xijian)](https://github.com/lgl2wmt-png/xijian/releases)
+[![Node](https://img.shields.io/badge/node-%3E%3D22-brightgreen)](https://nodejs.org/)
 
-| 页面 | 解决的焦虑 |
-|------|------------|
-| 首页 | 不知道从哪开始 |
-| 案例 | 不知道能不能实现 |
-| 找服务 | 不知道选谁 |
-| 我的（进度） | 不知道做得怎么样 |
-| `/hud` | 全局态势 + 微观指标的「上帝视角」监理 |
-| `/sandbox` | 像素沙盘：阶段映射、通关勋章、模拟经营感 |
-| `/galaxy` | 决策星图：预算引力场、约束连线、AI 平替 |
+按**用户旅程**组织的开源家装平台：灵感 → 方案 → 信任 → 转化 → 过程管控。
+
+> 每个页面只解决一个焦虑——从哪开始、能不能实现、选谁、做得怎么样。
+
+## 功能一览
+
+| 路由 | 能力 |
+|------|------|
+| `/` | 场景英雄区、AI 户型诊断入口、风格导航 |
+| `/galaxy` | 决策星图：预算引力场、约束/冲突连线、AI 平替 |
+| `/cases` | 结构化案例（面积 / 造价 / 工期） |
+| `/designers` | 按户型·风格·预算筛选 + 极简预约 |
+| `/progress` | 工序时间轴 + 验收/整改入库 |
+| `/hud` | 智慧工地 HUD（实时日志 WebSocket） |
+| `/sandbox` | 像素数字孪生沙盘 + 通关勋章 |
+
+## 截图
+
+> 建议本地跑通后，将首页 / 星图 / HUD / 沙盘截图放到 `docs/screenshots/`，再在此引用：
+>
+> `![首页](docs/screenshots/home.png)`
 
 ## 快速开始
+
+**要求：** Node.js 22+
 
 ```bash
 npm install
 npm run dev
 ```
 
-- 前端：http://localhost:5173（Vite 代理 `/api` 与 `/ws`）
-- API：http://localhost:8787
-- 智慧工地：http://localhost:5173/hud
-- 像素沙盘：http://localhost:5173/sandbox
-- 决策星图：http://localhost:5173/galaxy
-
-单独启动：
-
-```bash
-npm run dev:api   # Express + SQLite + WebSocket
-npm run dev:web   # Vite
-npm run seed      # 清空后可删 server/data/*.sqlite 再 seed
-```
-
-```bash
-npm run build
-npm run preview   # 或生产：构建后由 API 托管 dist
-```
-
-### Docker
-
-```bash
-docker compose up --build
-# http://localhost:8787  （静态站 + API + WS 同端口）
-```
-
-### 开源协作文件
-
-| 文件 | 用途 |
+| 服务 | 地址 |
 |------|------|
-| [LICENSE](./LICENSE) | MIT |
-| [CONTRIBUTING.md](./CONTRIBUTING.md) | 如何提 PR |
-| [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) | 行为准则 |
-| [SECURITY.md](./SECURITY.md) | 漏洞报告 |
-| [RELEASE_NOTES.md](./RELEASE_NOTES.md) | v0.4.0 说明 |
-| [CHANGELOG.md](./CHANGELOG.md) | 版本历史 |
+| 前端（Vite） | http://localhost:5173 |
+| API + WS | http://localhost:8787 |
+| 决策星图 | http://localhost:5173/galaxy |
+| 智慧工地 | http://localhost:5173/hud |
+| 像素沙盘 | http://localhost:5173/sandbox |
+
+```bash
+npm run build      # 生产构建
+npm run lint       # 静态检查
+docker compose up --build   # 单端口一体体验 → :8787
+```
+
+更完整的部署说明见 [docs/DEPLOY.md](./docs/DEPLOY.md)。
 
 ## 架构
 
 ```
 浏览器 ──► Vite (:5173) ──proxy──► Express (:8787)
                                       │
-                                      ├─ SQLite (server/data/xijian.sqlite)
-                                      └─ WebSocket /ws?project=p1  实时施工日志
+                                      ├─ SQLite (server/data/)
+                                      └─ WebSocket /ws?project=p1
 ```
 
-### 主要 API
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | `/api/cases` | 案例列表 |
-| GET | `/api/designers` | 设计师筛选 |
-| POST | `/api/bookings` | 预约入库 |
-| POST | `/api/quotes` | 报价入库 |
-| GET | `/api/projects/mine` | 我的工程 + 时间轴 |
-| POST | `/api/projects/:id/stages/:sid/accept` | 验收 |
-| GET | `/api/projects/:id/hud` | HUD 聚合数据 |
-| GET | `/api/galaxy` | 决策星图节点/边/平替 |
-| POST | `/api/galaxy/ask` | 自然语言高亮节点 |
-| WS | `/ws?project=p1` | 实时日志推送 |
+生产 Docker 镜像会把 `dist` 静态资源交由 Express 同端口托管。
 
 ## 技术栈
 
-- 前端：Vite · React 19 · TypeScript · Tailwind 4 · ECharts · React Router
-- 后端：Express 5 · better-sqlite3 · ws
-- 许可：[MIT](./LICENSE)
+- **前端：** Vite · React 19 · TypeScript · Tailwind CSS 4 · ECharts · React Router
+- **后端：** Express 5 · better-sqlite3 · ws
+- **工程：** GitHub Actions CI · Docker Compose
+- **许可：** [MIT](./LICENSE)
 
-## 参与贡献
+## 开源协作
 
-见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
+| 文件 | 用途 |
+|------|------|
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | 如何提 Issue / PR |
+| [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) | 行为准则 |
+| [SECURITY.md](./SECURITY.md) | 漏洞报告 |
+| [CHANGELOG.md](./CHANGELOG.md) | 版本历史 |
+| [RELEASE_NOTES.md](./RELEASE_NOTES.md) | 当前里程碑说明 |
+
+欢迎提 Issue / Discussion。路线图见仓库中的 **v0.5.0 开发计划** Issue。
+
+## 安全提示
+
+- 仓库仅包含 `.env.example`，**不要**提交真实 `.env` / Token / SQLite 数据库
+- 发布前对照 [SECURITY.md](./SECURITY.md) 自查清单

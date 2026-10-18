@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+### 新增
+
+- GitHub Actions CI（lint / build / API smoke / Docker build）
+- README 徽章与部署文档 `docs/DEPLOY.md`
+- 加固 `.gitignore`（token、密钥、本地 zip 等）
+
 ## [0.4.0] — 2026-10-18
 
 ### 新增
