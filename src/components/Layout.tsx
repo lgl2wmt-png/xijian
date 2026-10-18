@@ -134,7 +134,7 @@ export function Layout() {
         <Outlet />
       </main>
 
-      <footer className="border-t border-mist/50 bg-ink text-chalk">
+      <footer className="border-t border-mist/50 bg-ink text-chalk pb-[max(0px,env(safe-area-inset-bottom))]">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-10 sm:flex-row sm:items-end sm:justify-between sm:px-6">
           <div>
             <p className="font-display text-xl">栖见</p>

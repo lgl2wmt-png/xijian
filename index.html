@@ -3,17 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#15202b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="栖见" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <meta
       name="description"
       content="栖见 —— 按用户旅程组织的下一代家装平台：灵感、方案、信任、转化、进度管控。"
     />
+    <!-- Hero LCP: preload responsive WebP from same origin -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="/hero/hero-1280.webp"
+      imagesrcset="/hero/hero-640.webp 640w, /hero/hero-960.webp 960w, /hero/hero-1280.webp 1280w, /hero/hero-1920.webp 1920w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Non-blocking fonts: avoid render-blocking stylesheet on FCP -->
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <title>栖见 · 把装修变成可控的旅程</title>
   </head>
   <body>

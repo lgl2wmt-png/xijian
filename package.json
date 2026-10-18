@@ -13,9 +13,18 @@
     "preview": "vite preview",
     "screenshots": "node scripts/screenshots.mjs",
     "to-webp": "node scripts/to-webp.mjs",
+    "prepare-hero": "node scripts/prepare-hero.mjs",
+    "gen-icons": "node scripts/gen-icons.mjs",
+    "cap:sync": "npm run build && npx cap sync",
+    "cap:open": "npx cap open android",
+    "cap:open:ios": "npx cap open ios",
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/ios": "^8.5.3",
     "better-sqlite3": "^13.0.3",
     "cors": "^2.8.6",
     "echarts": "^6.0.0",
@@ -43,6 +52,7 @@
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",
     "typescript": "~6.0.2",
-    "vite": "^8.3.0"
+    "vite": "^8.3.0",
+    "vite-plugin-pwa": "^2.0.0"
   }
 }

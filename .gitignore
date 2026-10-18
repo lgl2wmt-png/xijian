@@ -26,6 +26,25 @@ coverage/
 *.zip
 !docs/**/*.zip
 
+# Android / Capacitor local build artifacts (keep project sources)
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+android/.idea/
+*.apk
+*.aab
+dev-dist/
+
+# iOS / Xcode local artifacts (keep ios/ App sources)
+ios/App/Pods/
+ios/App/App/public/
+ios/DerivedData/
+ios/**/xcuserdata/
+*.ipa
+*.dSYM.zip
+*.xcarchive
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

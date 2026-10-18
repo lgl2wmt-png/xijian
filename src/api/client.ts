@@ -8,9 +8,10 @@ import type {
   Review,
   StyleCard,
 } from '../types'
+import { apiUrl, wsUrl } from '../lib/apiBase'
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(path, {
+  const res = await fetch(apiUrl(path), {
     headers: { 'Content-Type': 'application/json', ...(init?.headers || {}) },
     ...init,
   })
@@ -70,7 +71,5 @@ export const api = {
 }
 
 export function siteWsUrl(projectId = 'p1') {
-  const proto = window.location.protocol === 'https:' ? 'wss' : 'ws'
-  const host = window.location.host
-  return `${proto}://${host}/ws?project=${projectId}`
+  return wsUrl(`/ws?project=${projectId}`)
 }
