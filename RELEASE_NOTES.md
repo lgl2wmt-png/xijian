@@ -1,26 +1,34 @@
-# 栖见 v0.4.0 Release Notes
+# 栖见 v0.5.0 Release Notes
 
-首个面向开源协作的稳定里程碑。
+性能与移动端里程碑：更小的首屏包体、WebP 资源、小屏可折叠的沉浸式界面。
 
 ## Highlights
 
-- 用户旅程四模块：灵感 / 案例 / 找服务 / 进度
-- 真实后端：Express + SQLite + WebSocket
-- 三大沉浸界面：决策星图 · 智慧工地 HUD · 像素沙盘
-- Docker 一键体验：`docker compose up --build`
+- **包体**：ECharts 按需加载 + chunk 拆分；HUD 独立懒加载，首屏不再背负图表库
+- **移动端**：汉堡导航；星图 / HUD / 沙盘面板可折叠，小屏默认收起次要信息
+- **WebP**：Unsplash 与文档截图全面 WebP（首页截图约 1.6MB → ~100KB）
+- **工程**：GitHub Actions CI、Playwright 截图脚本、部署文档
 
-## Quick start
+## Upgrade from 0.4.0
 
 ```bash
+git pull
 npm install
+npm run build
+# 或
+docker compose up --build
+```
+
+本地开发：
+
+```bash
 npm run dev
 ```
 
-或：
+重新生成截图：
 
 ```bash
-docker compose up --build
-# 打开 http://localhost:8787
+npm run screenshots
 ```
 
 ## License

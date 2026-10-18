@@ -2,20 +2,20 @@
 
 ## [Unreleased]
 
+## [0.5.0] — 2026-10-18
+
 ### 新增
 
 - GitHub Actions CI（lint / build / API smoke / Docker build）
 - README 徽章与部署文档 `docs/DEPLOY.md`
-- 加固 `.gitignore`（token、密钥、本地 zip 等）
-- Playwright 自动截图：`npm run screenshots` → `docs/screenshots/`
-- README 挂载核心页面截图
+- Playwright 自动截图：`npm run screenshots` → `docs/screenshots/*.webp`
+- README 挂载核心页面截图（WebP）
 
 ### 优化
 
-- ECharts 改为按需 `use()` 注册图表组件；`manualChunks` 拆出 `echarts` / `react-vendor`
-- HUD 懒加载后首屏不再背负图表库（echarts chunk ≈ 190 kB gzip，仅进入 HUD 时加载）
-- 移动端折叠：主导航汉堡菜单；星图时间轴/AI 面板；HUD 指标与台账；沙盘指标卡默认收起
-- 图片 WebP：Unsplash 请求 `fm=webp`；截图改为 `docs/screenshots/*.webp`
+- ECharts 按需注册 + `manualChunks`（`echarts` / `react-vendor`）；HUD 懒加载，首屏不再背负图表库
+- 移动端折叠：汉堡导航；星图时间轴/AI 面板；HUD 指标与台账；沙盘指标卡默认收起
+- 图片 WebP：Unsplash `fm=webp`；文档截图全面 WebP（首页截图约 1661KB → 100KB）
 
 ## [0.4.0] — 2026-10-18
 
@@ -57,6 +57,4 @@
 
 ### 已知限制
 
-- 数据为前端 Mock，无真实后端 / AI 诊断
-- 未实现智慧工地 HUD、像素沙盘、星系决策图（规划为 P1/P2）
-- 图片依赖 Unsplash 外链，弱网下需自行替换为本地资源
+- 数据为前端 Mock，无真实后端 / AI 诊断（已在后续版本解决）
