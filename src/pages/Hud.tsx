@@ -10,7 +10,9 @@ import {
 } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
 import { api, siteWsUrl } from '../api/client'
+import { useIsMobile } from '../hooks/useMediaQuery'
 import { useFetch } from '../hooks/useFetch'
+import { toWebp } from '../lib/media'
 import type { HudZone, StageStatus } from '../types'
 
 use([
@@ -34,8 +36,17 @@ const zoneColor: Record<StageStatus, string> = {
 export function Hud() {
   const { data, loading, error, setData } = useFetch(() => api.hud('p1'), [])
   const [selected, setSelected] = useState<HudZone | null>(null)
+  const isMobile = useIsMobile()
   const [panelOpen, setPanelOpen] = useState(true)
+  const [metricsOpen, setMetricsOpen] = useState(true)
+  const [ledgerOpen, setLedgerOpen] = useState(true)
   const [live, setLive] = useState(true)
+
+  useEffect(() => {
+    setPanelOpen(!isMobile)
+    setMetricsOpen(!isMobile)
+    setLedgerOpen(!isMobile)
+  }, [isMobile])
 
   const expenseOption = useMemo<EChartsCoreOption>(
     () => ({
@@ -230,30 +241,39 @@ export function Hud() {
               <h1 className="font-display text-lg text-chalk sm:text-xl">{project.name}</h1>
             </div>
           </div>
-          <div className="flex flex-wrap items-center gap-3 text-xs sm:gap-5 sm:text-sm">
-            <Metric label="Budget_Usage" value={`${project.budgetPct}%`} />
-            <Metric label="Days_Elapsed" value={`${project.daysElapsed}/${project.daysTotal}`} />
-            <Metric label="Completion" value={`${project.completion}%`} />
-            <span
-              className={`rounded-md px-2.5 py-1 font-mono text-xs ring-1 ${
-                project.status === 'normal'
-                  ? 'bg-ok/20 text-ok ring-ok/40'
-                  : 'bg-warn/20 text-warn ring-warn/40'
-              }`}
+          <div className="flex flex-wrap items-center gap-2 text-xs sm:gap-5 sm:text-sm">
+            <button
+              type="button"
+              className="min-h-10 rounded border border-white/15 px-2.5 md:hidden"
+              onClick={() => setMetricsOpen((v) => !v)}
             >
-              System_Status · {statusLabel}
-            </span>
-            <span className="hidden text-chalk/45 md:inline">{project.weather}</span>
-            <span
-              className={`inline-flex items-center gap-1.5 font-mono text-[10px] ${
-                live ? 'text-ok' : 'text-idle'
-              }`}
-            >
+              {metricsOpen ? '收起指标' : '指标'}
+            </button>
+            <div className={`flex flex-wrap items-center gap-3 sm:gap-5 ${metricsOpen ? '' : 'hidden md:flex'}`}>
+              <Metric label="Budget_Usage" value={`${project.budgetPct}%`} />
+              <Metric label="Days_Elapsed" value={`${project.daysElapsed}/${project.daysTotal}`} />
+              <Metric label="Completion" value={`${project.completion}%`} />
               <span
-                className={`h-1.5 w-1.5 rounded-full ${live ? 'bg-ok animate-soft-pulse' : 'bg-idle'}`}
-              />
-              LIVE WS
-            </span>
+                className={`rounded-md px-2.5 py-1 font-mono text-xs ring-1 ${
+                  project.status === 'normal'
+                    ? 'bg-ok/20 text-ok ring-ok/40'
+                    : 'bg-warn/20 text-warn ring-warn/40'
+                }`}
+              >
+                System_Status · {statusLabel}
+              </span>
+              <span className="hidden text-chalk/45 md:inline">{project.weather}</span>
+              <span
+                className={`inline-flex items-center gap-1.5 font-mono text-[10px] ${
+                  live ? 'text-ok' : 'text-idle'
+                }`}
+              >
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${live ? 'bg-ok animate-soft-pulse' : 'bg-idle'}`}
+                />
+                LIVE WS
+              </span>
+            </div>
           </div>
         </div>
       </header>
@@ -320,9 +340,10 @@ export function Hud() {
               </div>
               {selected.photo && (
                 <img
-                  src={selected.photo}
+                  src={toWebp(selected.photo)}
                   alt={selected.name}
                   className="mt-3 aspect-video w-full rounded-lg object-cover"
+                  loading="lazy"
                 />
               )}
               <p className="mt-3 text-xs text-chalk/60">
@@ -333,8 +354,21 @@ export function Hud() {
         </section>
 
         <aside className="flex flex-col gap-3 rounded-xl border border-white/10 bg-[#0f1620] p-4">
-          <p className="font-mono text-[10px] tracking-widest text-chalk/45">LEDGER · 验收/整改</p>
-          <ul className="max-h-[420px] space-y-2 overflow-y-auto text-sm">
+          <div className="flex items-center justify-between gap-2">
+            <p className="font-mono text-[10px] tracking-widest text-chalk/45">LEDGER · 验收/整改</p>
+            <button
+              type="button"
+              className="min-h-10 text-xs text-chalk/50 lg:hidden"
+              onClick={() => setLedgerOpen((v) => !v)}
+            >
+              {ledgerOpen ? '收起' : '展开'}
+            </button>
+          </div>
+          <ul
+            className={`max-h-[420px] space-y-2 overflow-y-auto text-sm ${
+              ledgerOpen ? '' : 'hidden lg:block'
+            }`}
+          >
             {data.acceptances.map((a, i) => (
               <li key={`${a.title}-${i}`} className="rounded-lg bg-white/5 px-3 py-2">
                 <p className="text-chalk/90">{a.title}</p>
@@ -358,7 +392,7 @@ export function Hud() {
           <button
             type="button"
             onClick={() => setPanelOpen((v) => !v)}
-            className="mt-auto min-h-10 rounded-lg border border-white/10 text-xs text-chalk/60 hover:bg-white/5"
+            className="mt-auto min-h-11 rounded-lg border border-white/10 text-xs text-chalk/60 hover:bg-white/5"
           >
             {panelOpen ? '收起底部仪表盘' : '展开底部仪表盘'}
           </button>

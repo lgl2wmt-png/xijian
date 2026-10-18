@@ -9,8 +9,9 @@ import {
 } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../api/client'
-import { tickForce, type SimNode } from '../lib/forceLayout'
+import { useIsMobile } from '../hooks/useMediaQuery'
 import { useFetch } from '../hooks/useFetch'
+import { tickForce, type SimNode } from '../lib/forceLayout'
 import type { GalaxyEdge, GalaxyNode, GalaxyPhase } from '../types'
 
 const PHASE_ORDER: GalaxyPhase[] = ['design', 'hard', 'soft', 'movein']
@@ -32,6 +33,14 @@ export function Galaxy() {
   const [reply, setReply] = useState<string | null>(null)
   const [asking, setAsking] = useState(false)
   const [toast, setToast] = useState<string | null>(null)
+  const isMobile = useIsMobile()
+  const [showTimeline, setShowTimeline] = useState(false)
+  const [showCopilot, setShowCopilot] = useState(false)
+
+  useEffect(() => {
+    setShowTimeline(!isMobile)
+    setShowCopilot(!isMobile)
+  }, [isMobile])
 
   const svgRef = useRef<SVGSVGElement>(null)
   const simRef = useRef<SimNode[]>([])
@@ -218,12 +227,26 @@ export function Galaxy() {
             <h1 className="font-display text-lg sm:text-xl">{raw.title}</h1>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
+        <div className="flex flex-wrap items-center gap-2 font-mono text-xs sm:gap-3">
           <span className="text-chalk/45">
-            品类合计 ≈ ¥{spent.toLocaleString()}
-            <span className="text-chalk/30"> / 池 {raw.totalBudget.toLocaleString()}</span>
+            ≈ ¥{spent.toLocaleString()}
+            <span className="hidden text-chalk/30 sm:inline"> / 池 {raw.totalBudget.toLocaleString()}</span>
           </span>
-          <Link to="/cases" className="rounded border border-white/15 px-3 py-1.5 hover:bg-white/5">
+          <button
+            type="button"
+            className="min-h-10 rounded border border-white/15 px-2.5 lg:hidden"
+            onClick={() => setShowTimeline((v) => !v)}
+          >
+            {showTimeline ? '收起时间轴' : '时间轴'}
+          </button>
+          <button
+            type="button"
+            className="min-h-10 rounded border border-violet-400/40 px-2.5 text-violet-200 lg:hidden"
+            onClick={() => setShowCopilot((v) => !v)}
+          >
+            {showCopilot ? '收起分析' : 'AI 分析'}
+          </button>
+          <Link to="/cases" className="hidden rounded border border-white/15 px-3 py-1.5 hover:bg-white/5 sm:inline">
             去案例
           </Link>
           <Link to="/sandbox" className="rounded border border-lime-500/30 px-3 py-1.5 text-lime-300 hover:bg-lime-500/10">
@@ -232,9 +255,27 @@ export function Galaxy() {
         </div>
       </header>
 
+      {/* Mobile compact phase slider */}
+      <div className="border-b border-white/10 px-4 py-2 lg:hidden">
+        <input
+          type="range"
+          min={0}
+          max={3}
+          value={phaseIdx}
+          onChange={(e) => setPhaseIdx(Number(e.target.value))}
+          className="w-full accent-violet-400"
+          aria-label="演进时间轴"
+        />
+        <p className="mt-1 font-mono text-[10px] text-chalk/40">阶段 · {visiblePhase}</p>
+      </div>
+
       <div className="mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 lg:grid-cols-[200px_1fr_300px]">
         {/* Timeline */}
-        <aside className="border-b border-white/10 p-4 lg:border-r lg:border-b-0">
+        <aside
+          className={`border-b border-white/10 p-4 lg:block lg:border-r lg:border-b-0 ${
+            showTimeline ? 'block' : 'hidden'
+          }`}
+        >
           <p className="font-mono text-[10px] tracking-widest text-chalk/40">TIMELINE</p>
           <div className="relative mt-6 ml-3 border-l border-violet-500/40 pl-4">
             {raw.phases.map((p, i) => (
@@ -262,14 +303,16 @@ export function Galaxy() {
             max={3}
             value={phaseIdx}
             onChange={(e) => setPhaseIdx(Number(e.target.value))}
-            className="mt-2 w-full accent-violet-400"
+            className="mt-2 hidden w-full accent-violet-400 lg:block"
             aria-label="演进时间轴"
           />
-          <p className="mt-2 font-mono text-[10px] text-chalk/40">拖动查看阶段亮起 · 当前 {visiblePhase}</p>
+          <p className="mt-2 hidden font-mono text-[10px] text-chalk/40 lg:block">
+            拖动查看阶段亮起 · 当前 {visiblePhase}
+          </p>
         </aside>
 
         {/* Canvas */}
-        <section className="relative min-h-[480px] overflow-hidden">
+        <section className="relative min-h-[360px] overflow-hidden sm:min-h-[480px]">
           <div
             className="absolute inset-0 opacity-40"
             style={{
@@ -360,7 +403,11 @@ export function Galaxy() {
         </section>
 
         {/* AI panel */}
-        <aside className="border-t border-white/10 bg-[#0c1220]/90 p-4 backdrop-blur lg:border-t-0 lg:border-l">
+        <aside
+          className={`border-t border-white/10 bg-[#0c1220]/95 p-4 backdrop-blur lg:block lg:border-t-0 lg:border-l ${
+            showCopilot ? 'block' : 'hidden'
+          }`}
+        >
           <p className="font-mono text-[10px] tracking-widest text-chalk/40">AI COPILOT</p>
           {selected ? (
             <div className="mt-3 space-y-3">

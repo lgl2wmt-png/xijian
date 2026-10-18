@@ -14,6 +14,8 @@
 
 - ECharts 改为按需 `use()` 注册图表组件；`manualChunks` 拆出 `echarts` / `react-vendor`
 - HUD 懒加载后首屏不再背负图表库（echarts chunk ≈ 190 kB gzip，仅进入 HUD 时加载）
+- 移动端折叠：主导航汉堡菜单；星图时间轴/AI 面板；HUD 指标与台账；沙盘指标卡默认收起
+- 图片 WebP：Unsplash 请求 `fm=webp`；截图改为 `docs/screenshots/*.webp`
 
 ## [0.4.0] — 2026-10-18
 

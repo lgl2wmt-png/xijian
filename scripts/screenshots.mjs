@@ -7,6 +7,7 @@ import { chromium } from 'playwright'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import sharp from 'sharp'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.join(__dirname, '..')
@@ -61,10 +62,13 @@ for (const shot of shots) {
   if (!ok) {
     throw new Error(`未识别为栖见页面，请检查 BASE_URL。当前：${url}`)
   }
-  const file = path.join(outDir, `${shot.name}.png`)
-  await page.screenshot({ path: file, fullPage: shot.fullPage })
-  console.log(`  saved ${path.relative(root, file)}`)
+  const png = path.join(outDir, `${shot.name}.png`)
+  const webp = path.join(outDir, `${shot.name}.webp`)
+  await page.screenshot({ path: png, fullPage: shot.fullPage })
+  await sharp(png).webp({ quality: 82 }).toFile(webp)
+  fs.unlinkSync(png)
+  console.log(`  saved ${path.relative(root, webp)}`)
 }
 
 await browser.close()
-console.log('[screenshots] done → docs/screenshots/')
+console.log('[screenshots] done → docs/screenshots/*.webp')

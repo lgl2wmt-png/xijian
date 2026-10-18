@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../api/client'
+import { useIsMobile } from '../hooks/useMediaQuery'
 import { useFetch } from '../hooks/useFetch'
 import type { ProgressStage } from '../types'
 
@@ -53,6 +54,12 @@ export function Sandbox() {
   const { data, loading, error } = useFetch(() => api.hud('p1'), [])
   const [picked, setPicked] = useState<string | null>('主卧')
   const [showRecipe, setShowRecipe] = useState(false)
+  const isMobile = useIsMobile()
+  const [showMetrics, setShowMetrics] = useState(true)
+
+  useEffect(() => {
+    setShowMetrics(!isMobile)
+  }, [isMobile])
 
   const activeStage = useMemo(() => {
     if (!data) return null
@@ -143,8 +150,21 @@ export function Sandbox() {
           <Kpi label="天气" value={project.weather.split('·')[0].trim()} />
         </div>
 
-        {/* Metrics matrix */}
-        <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+        <div className="mt-4 flex items-center justify-between gap-2 sm:mt-5">
+          <p className="font-mono text-[10px] tracking-widest text-chalk/40">METRICS MATRIX</p>
+          <button
+            type="button"
+            className="min-h-10 rounded border border-lime-500/30 px-3 font-mono text-[10px] text-lime-300 sm:hidden"
+            onClick={() => setShowMetrics((v) => !v)}
+          >
+            {showMetrics ? '收起指标卡' : '展开指标卡'}
+          </button>
+        </div>
+        <div
+          className={`mt-2 grid grid-cols-2 gap-2 sm:mt-3 sm:grid-cols-4 ${
+            showMetrics ? '' : 'hidden sm:grid'
+          }`}
+        >
           <MetricCard code="WEATHER" title="天气预警" body="明后日多云，宜贴砖/刷漆" tone="ok" />
           <MetricCard
             code="LOGISTICS"
@@ -178,15 +198,15 @@ export function Sandbox() {
                   key={b.room}
                   type="button"
                   onClick={() => setPicked(b.room)}
-                  className={`absolute z-10 max-w-[9rem] -translate-x-1/2 -translate-y-full rounded border px-2 py-1 text-left font-mono text-[10px] shadow-lg transition ${
+                  className={`absolute z-10 max-w-[7.5rem] -translate-x-1/2 -translate-y-full rounded border px-1.5 py-1 text-left font-mono text-[9px] shadow-lg transition sm:max-w-[9rem] sm:px-2 sm:text-[10px] ${
                     picked === b.room
                       ? 'border-fuchsia-400 bg-fuchsia-500/30 text-fuchsia-100'
                       : 'border-lime-400/50 bg-black/70 text-lime-100 hover:border-lime-300'
-                  }`}
+                  } ${isMobile && picked && picked !== b.room ? 'opacity-40' : ''}`}
                   style={{ left: `${b.x}%`, top: `${b.y}%` }}
                 >
                   <span className="block text-[9px] text-chalk/50">{b.room}</span>
-                  {b.text}
+                  <span className="hidden sm:inline">{b.text}</span>
                 </button>
               ))}
               {/* Pixel worker */}

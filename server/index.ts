@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url'
 import { WebSocketServer, type WebSocket } from 'ws'
 import { db, migrate } from './db.js'
 import { galaxyBundle } from './galaxy-data.js'
+import { toWebp, toWebpList } from './media.js'
 import { seedIfEmpty } from './seed.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -31,10 +32,10 @@ function mapCase(row: Record<string, unknown>) {
     city: row.city,
     budget: row.budget,
     duration: row.duration,
-    cover: row.cover,
-    images: JSON.parse(String(row.images)),
-    before: row.before_img || undefined,
-    after: row.after_img || undefined,
+    cover: toWebp(String(row.cover)),
+    images: toWebpList(String(row.images)),
+    before: toWebp(row.before_img as string | null),
+    after: toWebp(row.after_img as string | null),
     designerId: row.designer_id,
     summary: row.summary,
   }
@@ -44,7 +45,7 @@ function mapDesigner(row: Record<string, unknown>) {
   return {
     id: row.id,
     name: row.name,
-    avatar: row.avatar,
+    avatar: toWebp(String(row.avatar)),
     years: row.years,
     styles: JSON.parse(String(row.styles)),
     layouts: JSON.parse(String(row.layouts)),
@@ -65,7 +66,7 @@ function mapStage(row: Record<string, unknown>) {
     actualDate: row.actual_date || undefined,
     status: row.status,
     owner: row.owner,
-    photo: row.photo || undefined,
+    photo: toWebp(row.photo as string | null),
     note: row.note || undefined,
     accepted: Boolean(row.accepted),
   }
@@ -76,40 +77,42 @@ app.get('/api/health', (_req, res) => {
 })
 
 app.get('/api/styles', (_req, res) => {
-  res.json([
-    {
-      name: '现代简约',
-      blurb: '少即是多，让光线成为主角',
-      image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80',
-      area: '89㎡',
-      budget: '18–28万',
-      city: '上海',
-    },
-    {
-      name: '日式原木',
-      blurb: '木纹与留白，日常也像度假',
-      image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80',
-      area: '76㎡',
-      budget: '15–22万',
-      city: '杭州',
-    },
-    {
-      name: '轻奢法式',
-      blurb: '弧线与金属，仪式感不喧哗',
-      image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80',
-      area: '120㎡',
-      budget: '35–50万',
-      city: '深圳',
-    },
-    {
-      name: '奶油风',
-      blurb: '暖色包裹，下班即回家',
-      image: 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=800&q=80',
-      area: '95㎡',
-      budget: '20–30万',
-      city: '成都',
-    },
-  ])
+  res.json(
+    [
+      {
+        name: '现代简约',
+        blurb: '少即是多，让光线成为主角',
+        image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80',
+        area: '89㎡',
+        budget: '18–28万',
+        city: '上海',
+      },
+      {
+        name: '日式原木',
+        blurb: '木纹与留白，日常也像度假',
+        image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80',
+        area: '76㎡',
+        budget: '15–22万',
+        city: '杭州',
+      },
+      {
+        name: '轻奢法式',
+        blurb: '弧线与金属，仪式感不喧哗',
+        image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80',
+        area: '120㎡',
+        budget: '35–50万',
+        city: '深圳',
+      },
+      {
+        name: '奶油风',
+        blurb: '暖色包裹，下班即回家',
+        image: 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=800&q=80',
+        area: '95㎡',
+        budget: '20–30万',
+        city: '成都',
+      },
+    ].map((s) => ({ ...s, image: toWebp(s.image) })),
+  )
 })
 
 app.get('/api/cases', (req, res) => {
@@ -279,7 +282,7 @@ app.get('/api/projects/:id/hud', (req, res) => {
       h: z.h,
       status: z.status,
       stageName: z.stage_name,
-      photo: z.photo || undefined,
+      photo: toWebp(z.photo as string | null),
     }
   })
 

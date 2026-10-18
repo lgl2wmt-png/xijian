@@ -2,6 +2,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { api } from '../api/client'
 import { useFetch } from '../hooks/useFetch'
+import { toWebp } from '../lib/media'
 
 const trust = ['平台担保交易', '环保材料可溯源', '先行赔付', '真实业主评价']
 
@@ -19,9 +20,10 @@ export function Home() {
     <div>
       <section className="relative min-h-[92vh] overflow-hidden grain">
         <img
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1800&q=85"
+          src={toWebp('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1800&q=85')}
           alt="老房改造后的明亮客厅"
           className="absolute inset-0 h-full w-full object-cover"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,transparent_0%,rgba(21,32,43,0.35)_100%)]" />

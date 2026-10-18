@@ -25,11 +25,11 @@
 
 | 首页 | 决策星图 |
 |:---:|:---:|
-| ![首页](docs/screenshots/home.png) | ![星图](docs/screenshots/galaxy.png) |
+| ![首页](docs/screenshots/home.webp) | ![星图](docs/screenshots/galaxy.webp) |
 
 | 智慧工地 HUD | 像素沙盘 |
 |:---:|:---:|
-| ![HUD](docs/screenshots/hud.png) | ![沙盘](docs/screenshots/sandbox.png) |
+| ![HUD](docs/screenshots/hud.webp) | ![沙盘](docs/screenshots/sandbox.webp) |
 
 更多：`cases` / `designers` / `progress` 同目录。重新生成：
 
