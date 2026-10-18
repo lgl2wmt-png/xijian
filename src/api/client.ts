@@ -11,8 +11,18 @@ import type {
 import { apiUrl, wsUrl } from '../lib/apiBase'
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(apiUrl(path), {
-    headers: { 'Content-Type': 'application/json', ...(init?.headers || {}) },
+  const url = apiUrl(path)
+  // localtunnel (loca.lt) shows an interstitial unless this header is present
+  const tunnelHeaders =
+    /\.loca\.lt$/i.test(new URL(url, 'http://localhost').host)
+      ? { 'Bypass-Tunnel-Reminder': 'true' }
+      : {}
+  const res = await fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...tunnelHeaders,
+      ...(init?.headers || {}),
+    },
     ...init,
   })
   if (!res.ok) {
