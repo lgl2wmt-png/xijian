@@ -1,5 +1,10 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { AdminLayout } from './admin/AdminLayout'
+import { CasesAdmin } from './admin/pages/CasesAdmin'
+import { AdminDashboard } from './admin/pages/Dashboard'
+import { DesignersAdmin } from './admin/pages/DesignersAdmin'
+import { AdminSettings } from './admin/pages/Settings'
 import { Layout } from './components/Layout'
 import { CaseDetail } from './pages/CaseDetail'
 import { Cases } from './pages/Cases'
@@ -26,7 +31,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="hud"
+          path="/hud"
           element={
             <Suspense fallback={<ImmersiveFallback />}>
               <Hud />
@@ -34,7 +39,7 @@ export default function App() {
           }
         />
         <Route
-          path="sandbox"
+          path="/sandbox"
           element={
             <Suspense fallback={<ImmersiveFallback />}>
               <Sandbox />
@@ -42,13 +47,23 @@ export default function App() {
           }
         />
         <Route
-          path="galaxy"
+          path="/galaxy"
           element={
             <Suspense fallback={<ImmersiveFallback />}>
               <Galaxy />
             </Suspense>
           }
         />
+
+        {/* Admin：同步挂载，避免 Suspense / 嵌套 Routes 卡在「载入管理后台…」 */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="cases" element={<CasesAdmin />} />
+          <Route path="designers" element={<DesignersAdmin />} />
+          <Route path="settings" element={<AdminSettings />} />
+        </Route>
+
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="cases" element={<Cases />} />
@@ -57,8 +72,9 @@ export default function App() {
           <Route path="designers/:id" element={<DesignerDetail />} />
           <Route path="progress" element={<Progress />} />
           <Route path="quote" element={<Quote />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
+
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   )

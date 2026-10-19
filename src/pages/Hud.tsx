@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { init, use as registerEcharts, type EChartsCoreOption } from 'echarts/core'
 import { BarChart, LineChart, PieChart, RadarChart } from 'echarts/charts'
@@ -34,6 +35,7 @@ const zoneColor: Record<StageStatus, string> = {
 }
 
 export function Hud() {
+  const { t } = useTranslation()
   const { data, loading, error, setData } = useFetch(() => api.hud('p1'), [])
   const [selected, setSelected] = useState<HudZone | null>(null)
   const isMobile = useIsMobile()
@@ -207,14 +209,14 @@ export function Hud() {
   if (loading) {
     return (
       <div className="flex min-h-[70vh] items-center justify-center bg-[#0b1016] text-chalk/60">
-        连接工地数据…
+        {t('hudUi.connecting')}
       </div>
     )
   }
   if (error || !data) {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center gap-3 bg-[#0b1016] text-warn">
-        <p>{error || 'HUD 数据不可用'}</p>
+        <p>{error || t('hudUi.unavailable')}</p>
         <Link to="/progress" className="text-sm text-teal-bright">
           返回进度页
         </Link>
@@ -224,7 +226,7 @@ export function Hud() {
 
   const { project } = data
   const statusLabel =
-    project.status === 'normal' ? '正常' : project.status === 'warn' ? '警告' : '停工'
+    project.status === 'normal' ? t('hudUi.statusNormal') : project.status === 'warn' ? t('hudUi.statusWarn') : t('hudUi.statusStop')
 
   return (
     <div className="min-h-screen bg-[#0b1016] text-chalk">

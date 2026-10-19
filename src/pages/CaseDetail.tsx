@@ -1,15 +1,15 @@
-﻿import { Link, Navigate, useParams } from 'react-router-dom'
+﻿import { useTranslation } from 'react-i18next'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { api } from '../api/client'
 import { BeforeAfter } from '../components/BeforeAfter'
 import { StickyCta } from '../components/StickyCta'
 import { useFetch } from '../hooks/useFetch'
+import { labelOf } from '../i18n/labels'
 
 export function CaseDetail() {
+  const { t } = useTranslation()
   const { id } = useParams()
-  const { data: item, loading, error } = useFetch(
-    () => api.case(id!),
-    [id],
-  )
+  const { data: item, loading, error } = useFetch(() => api.case(id!), [id])
   const { data: designer } = useFetch(
     () =>
       item
@@ -20,15 +20,21 @@ export function CaseDetail() {
 
   if (!id) return <Navigate to="/cases" replace />
   if (loading) {
-    return <p className="mx-auto max-w-6xl px-4 py-20 text-ink-soft/60">加载案例…</p>
+    return <p className="mx-auto max-w-6xl px-4 py-20 text-ink-soft/60">{t('caseDetail.loading')}</p>
   }
   if (error || !item) {
     return (
-      <p className="mx-auto max-w-6xl px-4 py-20 text-warn">
-        {error || '案例不存在'}
-      </p>
+      <p className="mx-auto max-w-6xl px-4 py-20 text-warn">{error || t('caseDetail.notFound')}</p>
     )
   }
+
+  const specs: [string, string][] = [
+    [t('caseDetail.area'), `${item.area}㎡`],
+    [t('caseDetail.layout'), labelOf(t, item.layout)],
+    [t('caseDetail.style'), labelOf(t, item.style)],
+    [t('caseDetail.budget'), t('caseDetail.budgetValue', { n: item.budget })],
+    [t('caseDetail.duration'), t('caseDetail.durationValue', { n: item.duration })],
+  ]
 
   return (
     <div className="pb-28">
@@ -37,9 +43,9 @@ export function CaseDetail() {
         <div className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-6xl px-4 pb-8 sm:px-6">
           <p className="text-sm text-chalk/70">
-            {item.style} · {item.city}
+            {labelOf(t, item.style)} · {item.city}
           </p>
-          <h1 className="mt-2 font-display text-3xl text-chalk sm:text-4xl text-balance">
+          <h1 className="mt-2 font-display text-3xl text-balance text-chalk sm:text-4xl">
             {item.title}
           </h1>
         </div>
@@ -47,16 +53,12 @@ export function CaseDetail() {
 
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <dl className="grid grid-cols-2 gap-4 sm:grid-cols-5">
-          {[
-            ['面积', `${item.area}㎡`],
-            ['户型', item.layout],
-            ['风格', item.style],
-            ['总造价', `${item.budget}万`],
-            ['工期', `${item.duration}天`],
-          ].map(([k, v]) => (
+          {specs.map(([k, v]) => (
             <div key={k} className="rounded-xl bg-paper/80 px-4 py-3 ring-1 ring-mist/50">
               <dt className="text-xs text-ink-soft/55">{k}</dt>
-              <dd className="mt-1 text-sm font-semibold text-ink">{v}</dd>
+              <dd className="mt-1 truncate text-sm font-semibold text-ink" title={v}>
+                {v}
+              </dd>
             </div>
           ))}
         </dl>
@@ -65,8 +67,8 @@ export function CaseDetail() {
 
         {item.before && item.after && (
           <div className="mt-12">
-            <h2 className="font-display text-2xl text-ink">改造前后</h2>
-            <p className="mt-2 text-sm text-ink-soft/65">拖动滑块，直接看见设计价值。</p>
+            <h2 className="font-display text-2xl text-ink">{t('caseDetail.beforeAfter')}</h2>
+            <p className="mt-2 text-sm text-ink-soft/65">{t('caseDetail.beforeAfterSub')}</p>
             <div className="mt-5">
               <BeforeAfter before={item.before} after={item.after} />
             </div>
@@ -95,10 +97,14 @@ export function CaseDetail() {
               alt={designer.name}
               className="h-14 w-14 rounded-full object-cover"
             />
-            <div>
+            <div className="min-w-0">
               <p className="font-medium text-ink">{designer.name}</p>
-              <p className="text-sm text-ink-soft/65">
-                {designer.city} · {designer.years} 年经验 · {designer.rating} 分
+              <p className="truncate text-sm text-ink-soft/65">
+                {t('caseDetail.designerMeta', {
+                  city: designer.city,
+                  years: designer.years,
+                  rating: designer.rating,
+                })}
               </p>
             </div>
           </Link>
@@ -107,9 +113,9 @@ export function CaseDetail() {
 
       <StickyCta
         primaryTo={`/designers/${item.designerId}?from=${item.id}`}
-        primaryLabel="咨询同款设计师"
+        primaryLabel={t('caseDetail.askDesigner')}
         secondaryTo={`/quote?case=${item.id}`}
-        secondaryLabel="获取同户型报价"
+        secondaryLabel={t('caseDetail.getQuote')}
       />
     </div>
   )

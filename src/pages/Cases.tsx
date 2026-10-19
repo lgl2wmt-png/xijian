@@ -1,8 +1,11 @@
-﻿import { Link, useLocation, useSearchParams } from 'react-router-dom'
+﻿import { useTranslation } from 'react-i18next'
+import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { api } from '../api/client'
 import { useFetch } from '../hooks/useFetch'
+import { labelOf } from '../i18n/labels'
 
 export function Cases() {
+  const { t } = useTranslation()
   const [params] = useSearchParams()
   const style = params.get('style') || undefined
   const location = useLocation()
@@ -12,20 +15,20 @@ export function Cases() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       <header className="max-w-2xl">
-        <h1 className="font-display text-3xl text-ink sm:text-4xl">案例</h1>
-        <p className="mt-3 text-ink-soft/75">
-          决策发生在这里：每套方案都带面积、造价、工期——不是只能欣赏。
-        </p>
+        <h1 className="font-display text-3xl text-ink sm:text-4xl">{t('cases.title')}</h1>
+        <p className="mt-3 text-ink-soft/75">{t('cases.sub')}</p>
         {(style || query) && (
           <p className="mt-4 text-sm text-teal">
-            {style ? `风格筛选：${style}` : null}
-            {query ? `诊断意向：${query}` : null}
+            {style ? t('cases.styleFilter', { style: labelOf(t, style) }) : null}
+            {query ? t('cases.intent', { query }) : null}
           </p>
         )}
       </header>
 
-      {loading && <p className="mt-10 text-ink-soft/60">从后端加载案例…</p>}
-      {error && <p className="mt-10 text-warn">加载失败：{error}（请确认已启动 API）</p>}
+      {loading && <p className="mt-10 text-ink-soft/60">{t('cases.loading')}</p>}
+      {error && (
+        <p className="mt-10 text-warn">{t('cases.loadError', { error })}</p>
+      )}
 
       <div className="mt-10 columns-1 gap-6 sm:columns-2">
         {(filtered || []).map((c) => (
@@ -38,13 +41,13 @@ export function Cases() {
               <img src={c.cover} alt={c.title} className="h-full w-full object-cover" loading="lazy" />
             </div>
             <div className="p-5">
-              <p className="text-xs tracking-wide text-teal">{c.style}</p>
+              <p className="text-xs tracking-wide text-teal">{labelOf(t, c.style)}</p>
               <h2 className="mt-1 font-display text-xl leading-snug text-ink">{c.title}</h2>
               <p className="mt-3 text-sm text-ink-soft/70">
-                {c.area}㎡ · {c.layout} · {c.city}
+                {c.area}㎡ · {labelOf(t, c.layout)} · {c.city}
               </p>
               <p className="mt-1 text-sm font-medium text-ink">
-                总造价约 {c.budget} 万 · 工期 {c.duration} 天
+                {t('cases.meta', { budget: c.budget, days: c.duration })}
               </p>
             </div>
           </Link>
@@ -52,7 +55,7 @@ export function Cases() {
       </div>
 
       {!loading && filtered?.length === 0 && (
-        <p className="mt-12 text-ink-soft/60">暂无该风格案例，试试其他入口。</p>
+        <p className="mt-12 text-ink-soft/60">{t('cases.empty')}</p>
       )}
     </div>
   )

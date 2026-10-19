@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { api } from '../api/client'
 import { useIsMobile } from '../hooks/useMediaQuery'
@@ -51,6 +52,7 @@ function stageLook(name: string) {
 }
 
 export function Sandbox() {
+  const { t } = useTranslation()
   const { data, loading, error } = useFetch(() => api.hud('p1'), [])
   const [picked, setPicked] = useState<string | null>('主卧')
   const [showRecipe, setShowRecipe] = useState(false)
@@ -82,7 +84,7 @@ export function Sandbox() {
   if (error || !data) {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center gap-3 bg-[#0a0c10] text-warn">
-        <p>{error || '沙盘数据不可用'}</p>
+        <p>{error || t('sandboxUi.unavailable')}</p>
         <Link to="/progress" className="text-sm text-teal-bright">
           返回进度页
         </Link>

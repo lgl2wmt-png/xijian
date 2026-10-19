@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently -n web,api -c teal,amber \"npm run dev:web\" \"npm run dev:api\"",
-    "dev:web": "vite",
+    "dev:web": "vite --port 5188 --strictPort --host 127.0.0.1",
     "dev:api": "tsx server/index.ts",
     "seed": "tsx server/seed.ts",
     "build": "tsc -b && vite build",
@@ -24,16 +24,21 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.3.4",
     "@capacitor/android": "^8.5.3",
     "@capacitor/cli": "^8.5.3",
     "@capacitor/core": "^8.5.3",
     "@capacitor/ios": "^8.5.3",
+    "antd": "^6.6.6",
     "better-sqlite3": "^13.0.3",
     "cors": "^2.8.6",
     "echarts": "^6.0.0",
     "express": "^5.2.1",
+    "i18next": "^26.5.2",
+    "i18next-browser-languagedetector": "^8.2.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "react-i18next": "^17.1.0",
     "react-router-dom": "^7.18.4",
     "ws": "^8.20.0"
   },

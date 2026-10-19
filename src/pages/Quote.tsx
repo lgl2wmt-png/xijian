@@ -1,9 +1,11 @@
 import { useState, type FormEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 import { api } from '../api/client'
 import { useFetch } from '../hooks/useFetch'
 
 export function Quote() {
+  const { t } = useTranslation()
   const [params] = useSearchParams()
   const caseId = params.get('case') || undefined
   const { data: caseItem } = useFetch(
@@ -28,35 +30,33 @@ export function Quote() {
       })
       setDone({ min: res.estimateMin, max: res.estimateMax })
     } catch (err) {
-      setError(err instanceof Error ? err.message : '提交失败')
+      setError(err instanceof Error ? err.message : t('quote.submitFail'))
     }
   }
 
   return (
     <div className="mx-auto max-w-xl px-4 py-12 sm:px-6 sm:py-16">
-      <h1 className="font-display text-3xl text-ink">获取同户型报价</h1>
+      <h1 className="font-display text-3xl text-ink">{t('quote.title')}</h1>
       <p className="mt-3 text-ink-soft/75">
         {caseItem
-          ? `基于案例「${caseItem.title}」粗算，正式报价需设计师上门量房。`
-          : '输入面积，先拿到区间感，再决定是否留资。'}
+          ? t('quote.withCase', { title: caseItem.title })
+          : t('quote.withoutCase')}
       </p>
 
       {done ? (
         <div className="mt-10 rounded-2xl bg-paper/80 p-6 ring-1 ring-mist/60">
           <p className="font-display text-2xl text-ink">
-            约 {done.min}–{done.max} 万
+            {t('quote.result', { min: done.min, max: done.max })}
           </p>
-          <p className="mt-3 text-sm text-ink-soft/70">
-            已写入 quotes 表。含基础硬装与部分定制，不含家电软装。
-          </p>
+          <p className="mt-3 text-sm text-ink-soft/70">{t('quote.resultSub')}</p>
           <Link to="/designers" className="mt-6 inline-block text-sm font-medium text-teal">
-            去匹配设计师 →
+            {t('quote.toDesigners')}
           </Link>
         </div>
       ) : (
         <form onSubmit={onSubmit} className="mt-8 space-y-5">
           <label className="block text-sm">
-            <span className="text-ink-soft/60">建筑面积（㎡）</span>
+            <span className="text-ink-soft/60">{t('quote.area')}</span>
             <input
               type="number"
               min={20}
@@ -68,22 +68,22 @@ export function Quote() {
             />
           </label>
           <label className="block text-sm">
-            <span className="text-ink-soft/60">手机号</span>
+            <span className="text-ink-soft/60">{t('quote.phone')}</span>
             <input
               type="tel"
               required
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="用于接收报价明细"
+              placeholder={t('quote.phonePh')}
               className="mt-1.5 min-h-12 w-full rounded-lg border border-mist bg-paper px-3 outline-none focus:border-teal"
             />
           </label>
           {error && <p className="text-sm text-warn">{error}</p>}
           <button
             type="submit"
-            className="min-h-12 w-full rounded-lg bg-teal text-sm font-semibold text-white hover:bg-teal-bright"
+            className="min-h-12 w-full min-w-fit truncate rounded-lg bg-teal px-4 text-sm font-semibold text-white hover:bg-teal-bright"
           >
-            获取报价区间
+            {t('quote.submit')}
           </button>
         </form>
       )}

@@ -1,24 +1,24 @@
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { api } from '../api/client'
 import { useFetch } from '../hooks/useFetch'
 
 /** Below-the-fold home sections — lazy-loaded so they stay out of the critical path. */
 export function HomeBelow() {
+  const { t } = useTranslation()
   const { data: styles, loading } = useFetch(() => api.styles(), [])
 
   return (
     <>
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="max-w-xl">
-          <h2 className="font-display text-3xl text-ink sm:text-4xl">从风格走进案例</h2>
-          <p className="mt-3 text-ink-soft/75">
-            浏览时自然形成预算与风格认知——每张图都带着面积、造价与城市。
-          </p>
+          <h2 className="font-display text-3xl text-ink sm:text-4xl">{t('homeBelow.stylesTitle')}</h2>
+          <p className="mt-3 text-ink-soft/75">{t('homeBelow.stylesSub')}</p>
         </div>
 
         <div className="mt-10 flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory">
           {loading && (
-            <div className="flex gap-5" aria-busy aria-label="加载风格">
+            <div className="flex gap-5" aria-busy aria-label={t('homeBelow.loadingStyles')}>
               {[0, 1, 2].map((i) => (
                 <div
                   key={i}
@@ -56,29 +56,30 @@ export function HomeBelow() {
       <section className="border-t border-mist/50 bg-ink text-chalk">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <div>
-            <h2 className="font-display text-3xl sm:text-4xl">种草之后，立刻能行动</h2>
-            <p className="mt-4 max-w-md text-chalk/65">
-              内容流里穿插同款报价与设计师入口，避免「看完就走」。
-            </p>
+            <h2 className="font-display text-3xl sm:text-4xl">{t('homeBelow.ctaTitle')}</h2>
+            <p className="mt-4 max-w-md text-chalk/65">{t('homeBelow.ctaSub')}</p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+          <div className="flex min-w-0 flex-col gap-3 sm:flex-row lg:flex-col">
             <Link
               to="/galaxy"
-              className="min-h-12 rounded-lg bg-teal px-5 py-3 text-center text-sm font-semibold text-white hover:bg-teal-bright"
+              className="min-h-12 min-w-fit truncate rounded-lg bg-teal px-5 py-3 text-center text-sm font-semibold text-white hover:bg-teal-bright"
+              title={t('homeBelow.openGalaxy')}
             >
-              打开决策星图
+              {t('homeBelow.openGalaxy')}
             </Link>
             <Link
               to="/cases/c1"
-              className="min-h-12 rounded-lg border border-chalk/25 px-5 py-3 text-center text-sm font-medium text-chalk hover:bg-white/5"
+              className="min-h-12 min-w-fit truncate rounded-lg border border-chalk/25 px-5 py-3 text-center text-sm font-medium text-chalk hover:bg-white/5"
+              title={t('homeBelow.sameCase')}
             >
-              看同款案例报价
+              {t('homeBelow.sameCase')}
             </Link>
             <Link
               to="/designers"
-              className="min-h-12 rounded-lg border border-chalk/25 px-5 py-3 text-sm font-medium text-chalk hover:bg-white/5 text-center"
+              className="min-h-12 min-w-fit truncate rounded-lg border border-chalk/25 px-5 py-3 text-center text-sm font-medium text-chalk hover:bg-white/5"
+              title={t('homeBelow.findDesigner')}
             >
-              找同款设计师
+              {t('homeBelow.findDesigner')}
             </Link>
           </div>
         </div>

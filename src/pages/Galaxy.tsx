@@ -7,6 +7,7 @@ import {
   type FormEvent,
   type PointerEvent as ReactPointerEvent,
 } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { api } from '../api/client'
 import { useIsMobile } from '../hooks/useMediaQuery'
@@ -23,6 +24,7 @@ function radiusOf(n: GalaxyNode) {
 }
 
 export function Galaxy() {
+  const { t } = useTranslation()
   const { data: raw, loading, error } = useFetch(() => api.galaxy(), [])
   const [nodes, setNodes] = useState<GalaxyNode[]>([])
   const [edges, setEdges] = useState<GalaxyEdge[]>([])
@@ -173,7 +175,7 @@ export function Galaxy() {
     )
     setSelectedId(sub.toId)
     setHighlight([sub.toId, 'living', 'core'])
-    setToast(`已平替：${sub.toLabel}（预算 ${sub.budgetDelta}）`)
+    setToast(t('galaxyUi.swapToast', { label: sub.toLabel, delta: sub.budgetDelta }))
     setTimeout(() => setToast(null), 3200)
   }, [sub])
 
@@ -187,11 +189,11 @@ export function Galaxy() {
       setHighlight(res.highlightIds)
       if (res.highlightIds[0]) setSelectedId(res.highlightIds[0])
       if (res.styleHint) {
-        setToast(`风格线索：${res.styleHint}`)
+        setToast(t('galaxyUi.styleToast', { hint: res.styleHint }))
         setTimeout(() => setToast(null), 2800)
       }
     } catch (err) {
-      setReply(err instanceof Error ? err.message : '提问失败')
+      setReply(err instanceof Error ? err.message : t('galaxyUi.askFail'))
     } finally {
       setAsking(false)
     }
@@ -200,16 +202,16 @@ export function Galaxy() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#070b12] font-mono text-sm text-violet-300/70">
-        初始化引力场…
+        {t('galaxyUi.init')}
       </div>
     )
   }
   if (error || !raw) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-3 bg-[#070b12] text-warn">
-        <p>{error || '星系数据不可用'}</p>
+        <p>{error || t('galaxyUi.unavailable')}</p>
         <Link to="/" className="text-sm text-teal-bright">
-          回首页
+          {t('galaxyUi.home')}
         </Link>
       </div>
     )
@@ -220,37 +222,39 @@ export function Galaxy() {
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-4 py-3 sm:px-6">
         <div className="flex items-center gap-3">
           <Link to="/" className="text-xs text-chalk/40 hover:text-chalk">
-            ← 栖见
+            {t('galaxyUi.brandBack', { brand: t('common.brand') })}
           </Link>
           <div>
-            <p className="font-mono text-[10px] tracking-widest text-violet-300/80">SPATIAL GRAPH · 决策星图</p>
+            <p className="font-mono text-[10px] tracking-widest text-violet-300/80">{t('galaxyUi.spatial')}</p>
             <h1 className="font-display text-lg sm:text-xl">{raw.title}</h1>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2 font-mono text-xs sm:gap-3">
           <span className="text-chalk/45">
             ≈ ¥{spent.toLocaleString()}
-            <span className="hidden text-chalk/30 sm:inline"> / 池 {raw.totalBudget.toLocaleString()}</span>
+            <span className="hidden text-chalk/30 sm:inline">
+              {t('galaxyUi.pool', { n: raw.totalBudget.toLocaleString() })}
+            </span>
           </span>
           <button
             type="button"
-            className="min-h-10 rounded border border-white/15 px-2.5 lg:hidden"
+            className="min-h-10 min-w-fit truncate rounded border border-white/15 px-2.5 lg:hidden"
             onClick={() => setShowTimeline((v) => !v)}
           >
-            {showTimeline ? '收起时间轴' : '时间轴'}
+            {showTimeline ? t('galaxyUi.hideTimeline') : t('galaxyUi.showTimeline')}
           </button>
           <button
             type="button"
-            className="min-h-10 rounded border border-violet-400/40 px-2.5 text-violet-200 lg:hidden"
+            className="min-h-10 min-w-fit truncate rounded border border-violet-400/40 px-2.5 text-violet-200 lg:hidden"
             onClick={() => setShowCopilot((v) => !v)}
           >
-            {showCopilot ? '收起分析' : 'AI 分析'}
+            {showCopilot ? t('galaxyUi.hideCopilot') : t('galaxyUi.showCopilot')}
           </button>
           <Link to="/cases" className="hidden rounded border border-white/15 px-3 py-1.5 hover:bg-white/5 sm:inline">
-            去案例
+            {t('galaxyUi.toCases')}
           </Link>
           <Link to="/sandbox" className="rounded border border-lime-500/30 px-3 py-1.5 text-lime-300 hover:bg-lime-500/10">
-            沙盘
+            {t('galaxyUi.sandbox')}
           </Link>
         </div>
       </header>
@@ -264,9 +268,11 @@ export function Galaxy() {
           value={phaseIdx}
           onChange={(e) => setPhaseIdx(Number(e.target.value))}
           className="w-full accent-violet-400"
-          aria-label="演进时间轴"
+          aria-label={t('galaxyUi.timelineAria')}
         />
-        <p className="mt-1 font-mono text-[10px] text-chalk/40">阶段 · {visiblePhase}</p>
+        <p className="mt-1 font-mono text-[10px] text-chalk/40">
+          {t('galaxyUi.phase', { phase: visiblePhase })}
+        </p>
       </div>
 
       <div className="mx-auto grid w-full max-w-[1400px] flex-1 grid-cols-1 lg:grid-cols-[200px_1fr_300px]">
@@ -304,10 +310,10 @@ export function Galaxy() {
             value={phaseIdx}
             onChange={(e) => setPhaseIdx(Number(e.target.value))}
             className="mt-2 hidden w-full accent-violet-400 lg:block"
-            aria-label="演进时间轴"
+            aria-label={t('galaxyUi.timelineAria')}
           />
           <p className="mt-2 hidden font-mono text-[10px] text-chalk/40 lg:block">
-            拖动查看阶段亮起 · 当前 {visiblePhase}
+            {t('galaxyUi.dragPhase', { phase: visiblePhase })}
           </p>
         </aside>
 
@@ -416,13 +422,15 @@ export function Galaxy() {
                 ¥{selected.budget.toLocaleString()}
               </p>
               {selected.eco && (
-                <p className="text-xs text-chalk/60">环保：{selected.eco}</p>
+                <p className="text-xs text-chalk/60">{t('galaxyUi.eco', { v: selected.eco })}</p>
               )}
               {selected.priceNote && (
-                <p className="text-xs text-chalk/60">市场：{selected.priceNote}</p>
+                <p className="text-xs text-chalk/60">{t('galaxyUi.market', { v: selected.priceNote })}</p>
               )}
               {selected.styleTags?.length > 0 && (
-                <p className="text-xs text-chalk/50">标签：{selected.styleTags.join(' · ')}</p>
+                <p className="text-xs text-chalk/50">
+                  {t('galaxyUi.tags', { v: selected.styleTags.join(' · ') })}
+                </p>
               )}
               {selected.concern && (
                 <div className="rounded-lg border border-rose-400/40 bg-rose-500/10 p-3 text-sm text-rose-100">
@@ -438,7 +446,7 @@ export function Galaxy() {
                 )
                 .map((e) => (
                   <p key={e.id} className="text-xs text-sky-300/90">
-                    联动：{e.note || e.kind}
+                    {t('galaxyUi.link', { v: e.note || e.kind })}
                   </p>
                 ))}
               {sub && selectedId === sub.fromId && (
@@ -447,7 +455,7 @@ export function Galaxy() {
                   onClick={applySubstitute}
                   className="min-h-11 w-full rounded-lg bg-violet-600 text-sm font-semibold text-white hover:bg-violet-500"
                 >
-                  一键平替 · {sub.toLabel}（{sub.budgetDelta}）
+                  {t('galaxyUi.swap', { label: sub.toLabel, delta: sub.budgetDelta })}
                 </button>
               )}
               {sub && selectedId === sub.fromId && (
@@ -455,7 +463,7 @@ export function Galaxy() {
               )}
             </div>
           ) : (
-            <p className="mt-4 text-sm text-chalk/50">点击节点查看分析</p>
+            <p className="mt-4 text-sm text-chalk/50">{t('galaxyUi.clickNode')}</p>
           )}
 
           {reply && (
@@ -465,7 +473,7 @@ export function Galaxy() {
           )}
 
           <div className="mt-6">
-            <p className="mb-2 font-mono text-[10px] text-chalk/40">试试这些</p>
+            <p className="mb-2 font-mono text-[10px] text-chalk/40">{t('galaxyUi.tryThese')}</p>
             <div className="flex flex-col gap-1.5">
               {raw.prompts.map((p) => (
                 <button
@@ -489,21 +497,21 @@ export function Galaxy() {
       >
         <div className="mx-auto flex max-w-[1400px] gap-2">
           <label className="sr-only" htmlFor="galaxy-ask">
-            Ask a question
+            {t('galaxyUi.showCopilot')}
           </label>
           <input
             id="galaxy-ask"
             value={ask}
             onChange={(e) => setAsk(e.target.value)}
-            placeholder="Ask a question：帮我搭配一套原木风的客餐厅，预算 3 万"
-            className="min-h-12 flex-1 rounded-lg border border-white/15 bg-white/5 px-4 text-sm text-chalk outline-none placeholder:text-chalk/35 focus:border-violet-400"
+            placeholder={t('galaxyUi.askPh')}
+            className="min-h-12 min-w-0 flex-1 rounded-lg border border-white/15 bg-white/5 px-4 text-sm text-chalk outline-none placeholder:text-chalk/35 focus:border-violet-400"
           />
           <button
             type="submit"
             disabled={asking}
-            className="min-h-12 rounded-lg bg-violet-600 px-5 text-sm font-semibold text-white hover:bg-violet-500 disabled:opacity-50"
+            className="min-h-12 min-w-fit shrink-0 truncate rounded-lg bg-violet-600 px-5 text-sm font-semibold text-white hover:bg-violet-500 disabled:opacity-50"
           >
-            {asking ? '…' : '发送'}
+            {asking ? '…' : t('galaxyUi.send')}
           </button>
         </div>
       </form>

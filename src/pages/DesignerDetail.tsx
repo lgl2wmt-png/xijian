@@ -1,10 +1,13 @@
 ﻿import { useState, type FormEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { api } from '../api/client'
 import { StickyCta } from '../components/StickyCta'
 import { useFetch } from '../hooks/useFetch'
+import { labelOf } from '../i18n/labels'
 
 export function DesignerDetail() {
+  const { t } = useTranslation()
   const { id } = useParams()
   const [params] = useSearchParams()
   const { data: designer, loading, error } = useFetch(() => api.designer(id!), [id])
@@ -16,7 +19,7 @@ export function DesignerDetail() {
     [designer?.id],
   )
   const [sent, setSent] = useState(false)
-  const [form, setForm] = useState({ name: '', phone: '', city: '上海' })
+  const [form, setForm] = useState({ name: '', phone: '', city: t('designerDetail.defaultCity') })
   const [submitError, setSubmitError] = useState<string | null>(null)
   const fromCase = params.get('from')
 
@@ -34,13 +37,21 @@ export function DesignerDetail() {
       })
       setSent(true)
     } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : '提交失败')
+      setSubmitError(err instanceof Error ? err.message : t('designerDetail.submitFail'))
     }
   }
 
-  if (loading) return <p className="mx-auto max-w-6xl px-4 py-20 text-ink-soft/60">加载中…</p>
+  if (loading) {
+    return (
+      <p className="mx-auto max-w-6xl px-4 py-20 text-ink-soft/60">{t('designerDetail.loading')}</p>
+    )
+  }
   if (error || !designer) {
-    return <p className="mx-auto max-w-6xl px-4 py-20 text-warn">{error || '设计师不存在'}</p>
+    return (
+      <p className="mx-auto max-w-6xl px-4 py-20 text-warn">
+        {error || t('designerDetail.notFound')}
+      </p>
+    )
   }
 
   const designerReviews = designer.reviews || []
@@ -54,11 +65,15 @@ export function DesignerDetail() {
             alt={designer.name}
             className="h-28 w-28 rounded-full object-cover ring-4 ring-chalk"
           />
-          <div>
+          <div className="min-w-0">
             <h1 className="font-display text-3xl text-ink sm:text-4xl">{designer.name}</h1>
             <p className="mt-2 text-ink-soft/70">
-              {designer.city} · 从业 {designer.years} 年 · {designer.rating} 分 ·{' '}
-              {designer.reviewCount} 条评价
+              {t('designerDetail.meta', {
+                city: designer.city,
+                years: designer.years,
+                rating: designer.rating,
+                reviews: designer.reviewCount,
+              })}
             </p>
             <p className="mt-4 max-w-xl text-base text-ink-soft">{designer.bio}</p>
           </div>
@@ -66,7 +81,7 @@ export function DesignerDetail() {
       </div>
 
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <h2 className="font-display text-2xl text-ink">代表作 · 可验证</h2>
+        <h2 className="font-display text-2xl text-ink">{t('designerDetail.works')}</h2>
         <div className="mt-6 grid gap-5 sm:grid-cols-2">
           {(works || []).map((w) => (
             <Link
@@ -78,15 +93,19 @@ export function DesignerDetail() {
               <div className="p-4">
                 <p className="font-medium text-ink">{w.title}</p>
                 <p className="mt-1 text-sm text-ink-soft/65">
-                  {w.area}㎡ · 造价 {w.budget}万 · {w.style}
+                  {t('designerDetail.workMeta', {
+                    area: w.area,
+                    budget: w.budget,
+                    style: labelOf(t, w.style),
+                  })}
                 </p>
               </div>
             </Link>
           ))}
         </div>
 
-        <h2 className="mt-14 font-display text-2xl text-ink">真实业主评价</h2>
-        <p className="mt-2 text-sm text-ink-soft/60">含差评可见 · 与工地/设计师绑定</p>
+        <h2 className="mt-14 font-display text-2xl text-ink">{t('designerDetail.reviews')}</h2>
+        <p className="mt-2 text-sm text-ink-soft/60">{t('designerDetail.reviewsSub')}</p>
         <ul className="mt-6 space-y-4">
           {designerReviews.map((r) => (
             <li key={r.id} className="rounded-2xl bg-paper/80 p-5 ring-1 ring-mist/50">
@@ -95,41 +114,41 @@ export function DesignerDetail() {
                 <p className="text-sm text-sand">
                   {'★'.repeat(r.score)}
                   <span className="text-idle">{'★'.repeat(5 - r.score)}</span>
-                  <span className="ml-2 text-ink-soft/45">{r.date}</span>
+                  <span className="ms-2 text-ink-soft/45">{r.date}</span>
                 </p>
               </div>
               <p className="mt-3 text-sm leading-relaxed text-ink-soft">{r.text}</p>
-              {r.photos && <p className="mt-2 text-xs text-teal">含实拍照片</p>}
+              {r.photos && <p className="mt-2 text-xs text-teal">{t('designerDetail.hasPhotos')}</p>}
             </li>
           ))}
         </ul>
 
         <section id="book" className="mt-14 scroll-mt-24 rounded-2xl bg-ink p-6 text-chalk sm:p-8">
-          <h2 className="font-display text-2xl">预约咨询</h2>
+          <h2 className="font-display text-2xl">{t('designerDetail.bookTitle')}</h2>
           <p className="mt-2 text-sm text-chalk/60">
-            只留三要素。写入后端 bookings 表。
-            {fromCase ? ` · 来自案例 ${fromCase}` : ''}
+            {t('designerDetail.bookSub')}
+            {fromCase ? t('designerDetail.fromCase', { id: fromCase }) : ''}
           </p>
 
           {sent ? (
-            <p className="mt-8 text-teal-bright">已写入数据库，顾问将在 2 小时内联系你。</p>
+            <p className="mt-8 text-teal-bright">{t('designerDetail.booked')}</p>
           ) : (
             <form onSubmit={onSubmit} className="mt-6 grid gap-4 sm:grid-cols-3">
               <Field
-                label="姓名"
+                label={t('designerDetail.name')}
                 value={form.name}
                 onChange={(v) => setForm((f) => ({ ...f, name: v }))}
                 required
               />
               <Field
-                label="手机号"
+                label={t('designerDetail.phone')}
                 value={form.phone}
                 onChange={(v) => setForm((f) => ({ ...f, phone: v }))}
                 required
                 type="tel"
               />
               <Field
-                label="城市"
+                label={t('designerDetail.city')}
                 value={form.city}
                 onChange={(v) => setForm((f) => ({ ...f, city: v }))}
                 required
@@ -139,16 +158,21 @@ export function DesignerDetail() {
               )}
               <button
                 type="submit"
-                className="min-h-12 rounded-lg bg-teal text-sm font-semibold text-white hover:bg-teal-bright sm:col-span-3"
+                className="min-h-12 min-w-fit truncate rounded-lg bg-teal px-4 text-sm font-semibold text-white hover:bg-teal-bright sm:col-span-3"
               >
-                立即预约
+                {t('designerDetail.submit')}
               </button>
             </form>
           )}
         </section>
       </div>
 
-      <StickyCta primaryTo="#book" primaryLabel="立即预约" secondaryTo="/quote" secondaryLabel="先看报价" />
+      <StickyCta
+        primaryTo="#book"
+        primaryLabel={t('designerDetail.submit')}
+        secondaryTo="/quote"
+        secondaryLabel={t('designerDetail.seeQuote')}
+      />
     </div>
   )
 }

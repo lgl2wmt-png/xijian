@@ -89,6 +89,10 @@ export default defineConfig({
     },
   },
   server: {
+    // 避开本机其他项目常用的 5173（如「原间」），固定栖见开发端口
+    host: '127.0.0.1',
+    port: 5188,
+    strictPort: true,
     proxy: {
       '/api': {
         target: 'http://localhost:8787',
@@ -101,3 +105,4 @@ export default defineConfig({
     },
   },
 })
+
