@@ -167,3 +167,48 @@ export interface GalaxyAskResult {
   highlightIds: string[]
   styleHint: string | null
 }
+
+/** Crowdsourced renovation task order (客户发单 / 工人接单 / 后台审核). */
+export type OrderStatus =
+  | 'pending_review' // 待审核
+  | 'open' // 待接单
+  | 'in_progress' // 进行中
+  | 'completed' // 已完成
+  | 'rejected' // 已驳回
+
+export type WorkerTrade =
+  | 'plumbing' // 水电
+  | 'carpentry' // 木工
+  | 'painting' // 油漆
+  | 'tiling' // 泥瓦
+  | 'install' // 安装
+
+export interface Order {
+  id: string
+  clientId: string
+  title: string
+  description: string
+  budget: number
+  trade: WorkerTrade
+  status: OrderStatus
+  workerId: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+export type AppRole = 'client' | 'worker' | 'admin'
+
+/** 工人资质：已认证 / 待认证 / 已禁用 */
+export type WorkerCertStatus = 'verified' | 'pending' | 'disabled'
+
+export interface WorkerProfile {
+  id: string
+  name: string
+  trade: WorkerTrade
+  city: string
+  phone: string
+  /** @deprecated prefer certStatus */
+  enabled: boolean
+  certStatus: WorkerCertStatus
+  years: number
+}

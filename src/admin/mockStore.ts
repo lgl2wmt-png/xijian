@@ -1,5 +1,9 @@
 import { mockCases, mockDesigners } from '../api/mockData'
 import type { CaseItem, Designer, StyleTag } from '../types'
+import { SEED_ORDERS, SEED_WORKERS } from '../store/orderSeed'
+
+export { SEED_ORDERS, SEED_WORKERS }
+export type { Order, OrderStatus, WorkerTrade, WorkerProfile, AppRole } from '../types'
 
 /** In-memory admin store (mutated by CRUD; resets on refresh). */
 let cases = mockCases.map((c) => ({ ...c, images: [...c.images] }))

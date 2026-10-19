@@ -32,7 +32,17 @@
     "designers": "Services",
     "designersHint": "Confiance & personnes",
     "progress": "Moi",
-    "progressHint": "Suivre l’avancement"
+    "progressHint": "Suivre l’avancement",
+    "publish": "Publier",
+    "publishHint": "Client",
+    "workerHall": "Hall jobs",
+    "workerHint": "Ouvriers",
+    "myOrders": "Mes jobs",
+    "myOrdersHint": "Suivi",
+    "role": "Rôle",
+    "roleClient": "Client",
+    "roleWorker": "Ouvrier",
+    "roleAdmin": "Admin"
   },
   "footer": {
     "blurb": "Parcours de rénovation open-source — chaque page répond à une angoisse : par où commencer, est-ce possible, qui engager, où en est-on.",
@@ -343,5 +353,105 @@
     "showPanel": "Show dashboard",
     "planned": "Plan",
     "actual": "Actual"
+  },
+  "trade": {
+    "plumbing": "Plomberie/élec.",
+    "carpentry": "Menuiserie",
+    "painting": "Peinture",
+    "tiling": "Carrelage",
+    "install": "Pose"
+  },
+  "orderStatus": {
+    "pending_review": "En revue",
+    "open": "Ouvert",
+    "in_progress": "En cours",
+    "completed": "Terminé",
+    "rejected": "Refusé"
+  },
+  "publish": {
+    "title": "Publier un besoin",
+    "sub": "Décrivez la tâche. Après revue elle apparaît aux ouvriers.",
+    "fieldTitle": "Titre",
+    "fieldTitlePh": "ex. Rénovation fluides chambre",
+    "fieldDesc": "Détails",
+    "fieldDescPh": "Surface, matériaux, planning…",
+    "fieldBudget": "Budget (¥10k)",
+    "fieldTrade": "Métier",
+    "submit": "Soumettre",
+    "success": "Envoyé — en attente de revue",
+    "required": "Remplissez tous les champs"
+  },
+  "workerHall": {
+    "title": "Hall des jobs",
+    "sub": "Jobs approuvés à prendre.",
+    "empty": "Aucun job ouvert.",
+    "budget": "Budget ¥{{n}}0k",
+    "claim": "Prendre",
+    "claimed": "Pris",
+    "claimFail": "Échec — réessayez"
+  },
+  "orderDetail": {
+    "title": "Suivi du job",
+    "notFound": "Introuvable",
+    "backHall": "Retour au hall",
+    "backPublish": "Publier encore",
+    "client": "Client",
+    "worker": "Ouvrier",
+    "unassigned": "Non assigné",
+    "timeline": "Timeline",
+    "created": "Créé {{date}}",
+    "updated": "Maj {{date}}"
+  },
+  "adminOrders": {
+    "menu": "Revue commandes",
+    "title": "Revue des commandes",
+    "desc": "{{count}} en attente · approuver → hall",
+    "search": "Chercher ID / titre / client",
+    "colId": "ID",
+    "colTitle": "Titre",
+    "colTrade": "Métier",
+    "colBudget": "Budget",
+    "colStatus": "Statut",
+    "colClient": "Client",
+    "colWorker": "Ouvrier",
+    "colActions": "Actions",
+    "approve": "Approuver",
+    "reject": "Refuser",
+    "approved": "Approuvé — ouvert",
+    "rejected": "Refusé"
+  },
+  "adminWorkers": {
+    "menu": "Certifs ouvriers",
+    "title": "Certification ouvriers",
+    "desc": "Valider / en attente / désactiver",
+    "search": "Nom / ville / téléphone / ID",
+    "colId": "ID",
+    "colName": "Nom",
+    "colTrade": "Métier",
+    "colCity": "Ville",
+    "colPhone": "Tél.",
+    "colYears": "Ans",
+    "colCert": "Certification",
+    "colActions": "Actions",
+    "verify": "Valider",
+    "markPending": "En attente",
+    "disable": "Désactiver",
+    "statusUpdated": "Statut mis à jour",
+    "cert": {
+      "verified": "Validé",
+      "pending": "En attente",
+      "disabled": "Désactivé"
+    }
+  },
+  "adminDash": {
+    "desc": "KPI et graphiques depuis le store commandes.",
+    "todayNew": "Publiés aujourd'hui",
+    "openJobs": "Ouverts",
+    "inProgress": "En cours",
+    "totalBudget": "Budget total",
+    "budgetUnit": "×¥10k",
+    "publishTrend": "Publications · 7 j",
+    "publishSeries": "Publications",
+    "statusBreakdown": "Par statut ({{pending}} en revue)"
   }
 }

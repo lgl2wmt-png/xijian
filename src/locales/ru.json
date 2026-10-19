@@ -32,7 +32,17 @@
     "designers": "Сервисы",
     "designersHint": "Доверие и люди",
     "progress": "Моё",
-    "progressHint": "Следить за ходом"
+    "progressHint": "Следить за ходом",
+    "publish": "Разместить",
+    "publishHint": "Клиент",
+    "workerHall": "Биржа заказов",
+    "workerHint": "Мастера",
+    "myOrders": "Мои заказы",
+    "myOrdersHint": "Прогресс",
+    "role": "Роль",
+    "roleClient": "Клиент",
+    "roleWorker": "Мастер",
+    "roleAdmin": "Админ"
   },
   "footer": {
     "blurb": "Open-source путь ремонта — каждая страница отвечает на тревогу: с чего начать, получится ли, кого нанять, как идёт.",
@@ -343,5 +353,105 @@
     "showPanel": "Show dashboard",
     "planned": "Plan",
     "actual": "Actual"
+  },
+  "trade": {
+    "plumbing": "Сантехника/электр.",
+    "carpentry": "Столярка",
+    "painting": "Малярка",
+    "tiling": "Плитка",
+    "install": "Монтаж"
+  },
+  "orderStatus": {
+    "pending_review": "На проверке",
+    "open": "Открыт",
+    "in_progress": "В работе",
+    "completed": "Завершён",
+    "rejected": "Отклонён"
+  },
+  "publish": {
+    "title": "Разместить задачу",
+    "sub": "Опишите работу. После проверки она появится у мастеров.",
+    "fieldTitle": "Название",
+    "fieldTitlePh": "напр. Электрика в спальне",
+    "fieldDesc": "Описание",
+    "fieldDescPh": "Площадь, материалы, сроки…",
+    "fieldBudget": "Бюджет (¥10k)",
+    "fieldTrade": "Специальность",
+    "submit": "Отправить на проверку",
+    "success": "Отправлено — ждёт проверки",
+    "required": "Заполните все поля"
+  },
+  "workerHall": {
+    "title": "Биржа заказов",
+    "sub": "Одобренные заказы для взятия.",
+    "empty": "Нет открытых заказов.",
+    "budget": "Бюджет ¥{{n}}0k",
+    "claim": "Взять",
+    "claimed": "Взято",
+    "claimFail": "Ошибка — обновите"
+  },
+  "orderDetail": {
+    "title": "Прогресс заказа",
+    "notFound": "Не найдено",
+    "backHall": "К бирже",
+    "backPublish": "Ещё заказ",
+    "client": "Клиент",
+    "worker": "Мастер",
+    "unassigned": "Не назначен",
+    "timeline": "Таймлайн",
+    "created": "Создан {{date}}",
+    "updated": "Обновлён {{date}}"
+  },
+  "adminOrders": {
+    "menu": "Проверка заказов",
+    "title": "Проверка заказов",
+    "desc": "{{count}} ждут · одобрить → биржа",
+    "search": "ID / название / клиент",
+    "colId": "ID",
+    "colTitle": "Название",
+    "colTrade": "Специальность",
+    "colBudget": "Бюджет",
+    "colStatus": "Статус",
+    "colClient": "Клиент",
+    "colWorker": "Мастер",
+    "colActions": "Действия",
+    "approve": "Одобрить",
+    "reject": "Отклонить",
+    "approved": "Одобрено — открыт",
+    "rejected": "Отклонён"
+  },
+  "adminWorkers": {
+    "menu": "Сертификация",
+    "title": "Сертификация мастеров",
+    "desc": "Подтвердить / ожидание / отключить",
+    "search": "Имя / город / тел / ID",
+    "colId": "ID",
+    "colName": "Имя",
+    "colTrade": "Специальность",
+    "colCity": "Город",
+    "colPhone": "Тел.",
+    "colYears": "Лет",
+    "colCert": "Статус",
+    "colActions": "Действия",
+    "verify": "Подтвердить",
+    "markPending": "Ожидание",
+    "disable": "Отключить",
+    "statusUpdated": "Статус обновлён",
+    "cert": {
+      "verified": "Подтверждён",
+      "pending": "Ожидание",
+      "disabled": "Отключён"
+    }
+  },
+  "adminDash": {
+    "desc": "KPI и графики из store заказов.",
+    "todayNew": "Сегодня",
+    "openJobs": "Открыты",
+    "inProgress": "В работе",
+    "totalBudget": "Суммарный бюджет",
+    "budgetUnit": "×¥10k",
+    "publishTrend": "Публикации · 7 дн.",
+    "publishSeries": "Публикации",
+    "statusBreakdown": "По статусу ({{pending}} на проверке)"
   }
 }

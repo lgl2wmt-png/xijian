@@ -32,7 +32,17 @@
     "designers": "找服务",
     "designersHint": "信任与人选",
     "progress": "我的",
-    "progressHint": "过程管控"
+    "progressHint": "过程管控",
+    "publish": "发布需求",
+    "publishHint": "客户发单",
+    "workerHall": "接单大厅",
+    "workerHint": "工人中心",
+    "myOrders": "我的任务",
+    "myOrdersHint": "订单进度",
+    "role": "角色",
+    "roleClient": "客户",
+    "roleWorker": "工人",
+    "roleAdmin": "管理员"
   },
   "footer": {
     "blurb": "开源家装旅程平台 · 每个页面只解决一个焦虑：从哪开始、能不能实现、选谁、做得怎么样。",
@@ -343,5 +353,105 @@
     "showPanel": "展开底部仪表盘",
     "planned": "计划",
     "actual": "实际"
+  },
+  "trade": {
+    "plumbing": "水电",
+    "carpentry": "木工",
+    "painting": "油漆",
+    "tiling": "泥瓦",
+    "install": "安装"
+  },
+  "orderStatus": {
+    "pending_review": "待审核",
+    "open": "待接单",
+    "in_progress": "进行中",
+    "completed": "已完成",
+    "rejected": "已驳回"
+  },
+  "publish": {
+    "title": "发布需求",
+    "sub": "描述你的家装任务，审核通过后会出现在工人接单大厅。",
+    "fieldTitle": "任务标题",
+    "fieldTitlePh": "例如：主卧水电改造",
+    "fieldDesc": "详细描述",
+    "fieldDescPh": "面积、材料是否自备、期望工期…",
+    "fieldBudget": "预算（万元）",
+    "fieldTrade": "工种",
+    "submit": "提交审核",
+    "success": "已提交，等待平台审核",
+    "required": "请填写完整信息"
+  },
+  "workerHall": {
+    "title": "接单大厅",
+    "sub": "以下任务已通过审核，可立即接单。",
+    "empty": "暂无待接单任务，稍后再来看看。",
+    "budget": "预算 {{n}} 万",
+    "claim": "立即接单",
+    "claimed": "已接单",
+    "claimFail": "接单失败，请刷新后重试"
+  },
+  "orderDetail": {
+    "title": "任务进度",
+    "notFound": "任务不存在",
+    "backHall": "返回接单大厅",
+    "backPublish": "再发一单",
+    "client": "客户",
+    "worker": "接单工人",
+    "unassigned": "尚未分配",
+    "timeline": "状态时间线",
+    "created": "创建于 {{date}}",
+    "updated": "更新于 {{date}}"
+  },
+  "adminOrders": {
+    "menu": "订单审核",
+    "title": "订单审核",
+    "desc": "待审核 {{count}} 单 · 通过后进入工人接单大厅",
+    "search": "搜索 ID / 标题 / 客户",
+    "colId": "任务 ID",
+    "colTitle": "标题",
+    "colTrade": "工种",
+    "colBudget": "预算",
+    "colStatus": "状态",
+    "colClient": "客户",
+    "colWorker": "工人",
+    "colActions": "操作",
+    "approve": "审核通过",
+    "reject": "驳回",
+    "approved": "已通过，状态变为待接单",
+    "rejected": "已驳回"
+  },
+  "adminWorkers": {
+    "menu": "工人资质",
+    "title": "工人资质审核",
+    "desc": "启用 / 待认证 / 禁用注册工人",
+    "search": "搜索姓名 / 城市 / 电话 / ID",
+    "colId": "ID",
+    "colName": "姓名",
+    "colTrade": "工种",
+    "colCity": "城市",
+    "colPhone": "电话",
+    "colYears": "年限",
+    "colCert": "审核状态",
+    "colActions": "操作",
+    "verify": "设为已认证",
+    "markPending": "设为待认证",
+    "disable": "禁用",
+    "statusUpdated": "资质状态已更新",
+    "cert": {
+      "verified": "已认证",
+      "pending": "待认证",
+      "disabled": "已禁用"
+    }
+  },
+  "adminDash": {
+    "desc": "KPI 与图表来自实时订单数据（zustand）。",
+    "todayNew": "今日发单",
+    "openJobs": "待接单",
+    "inProgress": "进行中",
+    "totalBudget": "订单总预算",
+    "budgetUnit": "万",
+    "publishTrend": "近 7 日发单量",
+    "publishSeries": "发单量",
+    "statusBreakdown": "状态分布（待审核 {{pending}}）"
   }
 }

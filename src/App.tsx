@@ -4,15 +4,20 @@ import { AdminLayout } from './admin/AdminLayout'
 import { CasesAdmin } from './admin/pages/CasesAdmin'
 import { AdminDashboard } from './admin/pages/Dashboard'
 import { DesignersAdmin } from './admin/pages/DesignersAdmin'
+import { OrdersAdmin } from './admin/pages/OrdersAdmin'
 import { AdminSettings } from './admin/pages/Settings'
+import { WorkersAdmin } from './admin/pages/WorkersAdmin'
 import { Layout } from './components/Layout'
 import { CaseDetail } from './pages/CaseDetail'
 import { Cases } from './pages/Cases'
 import { DesignerDetail } from './pages/DesignerDetail'
 import { Designers } from './pages/Designers'
 import { Home } from './pages/Home'
+import { OrderDetail } from './pages/OrderDetail'
 import { Progress } from './pages/Progress'
+import { Publish } from './pages/Publish'
 import { Quote } from './pages/Quote'
+import { WorkerHall } from './pages/WorkerHall'
 
 const Hud = lazy(() => import('./pages/Hud').then((m) => ({ default: m.Hud })))
 const Sandbox = lazy(() => import('./pages/Sandbox').then((m) => ({ default: m.Sandbox })))
@@ -59,6 +64,8 @@ export default function App() {
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="orders" element={<OrdersAdmin />} />
+          <Route path="workers" element={<WorkersAdmin />} />
           <Route path="cases" element={<CasesAdmin />} />
           <Route path="designers" element={<DesignersAdmin />} />
           <Route path="settings" element={<AdminSettings />} />
@@ -72,6 +79,9 @@ export default function App() {
           <Route path="designers/:id" element={<DesignerDetail />} />
           <Route path="progress" element={<Progress />} />
           <Route path="quote" element={<Quote />} />
+          <Route path="publish" element={<Publish />} />
+          <Route path="worker" element={<WorkerHall />} />
+          <Route path="orders/:id" element={<OrderDetail />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

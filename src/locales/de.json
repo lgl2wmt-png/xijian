@@ -32,7 +32,17 @@
     "designers": "Services",
     "designersHint": "Vertrauen & Personen",
     "progress": "Mein",
-    "progressHint": "Fortschritt verfolgen"
+    "progressHint": "Fortschritt verfolgen",
+    "publish": "Auftrag",
+    "publishHint": "Kunde",
+    "workerHall": "Job-Halle",
+    "workerHint": "Handwerker",
+    "myOrders": "Meine Jobs",
+    "myOrdersHint": "Fortschritt",
+    "role": "Rolle",
+    "roleClient": "Kunde",
+    "roleWorker": "Handwerker",
+    "roleAdmin": "Admin"
   },
   "footer": {
     "blurb": "Open-Source-Renovierungsweg — jede Seite beantwortet eine Sorge: Wo anfangen, ob es geht, wen beauftragen, wie es läuft.",
@@ -343,5 +353,105 @@
     "showPanel": "Show dashboard",
     "planned": "Plan",
     "actual": "Actual"
+  },
+  "trade": {
+    "plumbing": "Sanitär/Elektro",
+    "carpentry": "Schreiner",
+    "painting": "Maler",
+    "tiling": "Fliesen",
+    "install": "Montage"
+  },
+  "orderStatus": {
+    "pending_review": "Prüfung",
+    "open": "Offen",
+    "in_progress": "Laufend",
+    "completed": "Fertig",
+    "rejected": "Abgelehnt"
+  },
+  "publish": {
+    "title": "Auftrag posten",
+    "sub": "Beschreiben Sie die Aufgabe. Nach Prüfung sichtbar für Handwerker.",
+    "fieldTitle": "Titel",
+    "fieldTitlePh": "z. B. Schlafzimmer Sanitär",
+    "fieldDesc": "Details",
+    "fieldDescPh": "Fläche, Material, Termin…",
+    "fieldBudget": "Budget (¥10k)",
+    "fieldTrade": "Gewerk",
+    "submit": "Zur Prüfung",
+    "success": "Gesendet — wartet auf Prüfung",
+    "required": "Bitte alles ausfüllen"
+  },
+  "workerHall": {
+    "title": "Job-Halle",
+    "sub": "Freigegebene Jobs zum Annehmen.",
+    "empty": "Keine offenen Jobs.",
+    "budget": "Budget ¥{{n}}0k",
+    "claim": "Annehmen",
+    "claimed": "Angenommen",
+    "claimFail": "Fehlgeschlagen — erneut versuchen"
+  },
+  "orderDetail": {
+    "title": "Job-Fortschritt",
+    "notFound": "Nicht gefunden",
+    "backHall": "Zur Halle",
+    "backPublish": "Weiteren posten",
+    "client": "Kunde",
+    "worker": "Handwerker",
+    "unassigned": "Nicht zugewiesen",
+    "timeline": "Zeitachse",
+    "created": "Erstellt {{date}}",
+    "updated": "Aktualisiert {{date}}"
+  },
+  "adminOrders": {
+    "menu": "Auftragsprüfung",
+    "title": "Auftragsprüfung",
+    "desc": "{{count}} wartend · freigeben → Job-Halle",
+    "search": "ID / Titel / Kunde",
+    "colId": "Job-ID",
+    "colTitle": "Titel",
+    "colTrade": "Gewerk",
+    "colBudget": "Budget",
+    "colStatus": "Status",
+    "colClient": "Kunde",
+    "colWorker": "Handwerker",
+    "colActions": "Aktionen",
+    "approve": "Freigeben",
+    "reject": "Ablehnen",
+    "approved": "Freigegeben — offen",
+    "rejected": "Abgelehnt"
+  },
+  "adminWorkers": {
+    "menu": "Handwerker-Zert.",
+    "title": "Handwerker-Zertifizierung",
+    "desc": "Prüfen / wartend / sperren",
+    "search": "Name / Stadt / Tel / ID",
+    "colId": "ID",
+    "colName": "Name",
+    "colTrade": "Gewerk",
+    "colCity": "Stadt",
+    "colPhone": "Tel.",
+    "colYears": "Jahre",
+    "colCert": "Zertifizierung",
+    "colActions": "Aktionen",
+    "verify": "Zertifizieren",
+    "markPending": "Wartend",
+    "disable": "Sperren",
+    "statusUpdated": "Status aktualisiert",
+    "cert": {
+      "verified": "Zertifiziert",
+      "pending": "Wartend",
+      "disabled": "Gesperrt"
+    }
+  },
+  "adminDash": {
+    "desc": "KPIs und Charts aus dem Order-Store.",
+    "todayNew": "Heute gepostet",
+    "openJobs": "Offen",
+    "inProgress": "Laufend",
+    "totalBudget": "Gesamtbudget",
+    "budgetUnit": "×¥10k",
+    "publishTrend": "Posts · 7 Tage",
+    "publishSeries": "Posts",
+    "statusBreakdown": "Nach Status ({{pending}} Prüfung)"
   }
 }

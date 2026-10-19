@@ -32,7 +32,17 @@
     "designers": "サービス",
     "designersHint": "信頼と人選",
     "progress": "マイ",
-    "progressHint": "進捗を追う"
+    "progressHint": "進捗を追う",
+    "publish": "需求を出す",
+    "publishHint": "お客様",
+    "workerHall": "受注ホール",
+    "workerHint": "職人",
+    "myOrders": "自分の任務",
+    "myOrdersHint": "進捗",
+    "role": "役割",
+    "roleClient": "お客様",
+    "roleWorker": "職人",
+    "roleAdmin": "管理者"
   },
   "footer": {
     "blurb": "オープンソースの住まいリノベ旅程 — 各ページは一つの不安に答えます：どこから、実現できるか、誰に頼むか、今どうか。",
@@ -343,5 +353,105 @@
     "showPanel": "Show dashboard",
     "planned": "Plan",
     "actual": "Actual"
+  },
+  "trade": {
+    "plumbing": "水电",
+    "carpentry": "木工",
+    "painting": "ペンキ",
+    "tiling": "タイル",
+    "install": "取り付け"
+  },
+  "orderStatus": {
+    "pending_review": "審査待ち",
+    "open": "受注待ち",
+    "in_progress": "進行中",
+    "completed": "完了",
+    "rejected": "却下"
+  },
+  "publish": {
+    "title": "需求を公開",
+    "sub": "タスクを記入。審査後に職人が見られます。",
+    "fieldTitle": "タイトル",
+    "fieldTitlePh": "例：主卧室の水电改造",
+    "fieldDesc": "詳細",
+    "fieldDescPh": "面積、材料、希望工期…",
+    "fieldBudget": "予算（万元）",
+    "fieldTrade": "工種",
+    "submit": "審査に出す",
+    "success": "提出済み — 審査待ち",
+    "required": "すべて入力してください"
+  },
+  "workerHall": {
+    "title": "受注ホール",
+    "sub": "審査通過の任务を受注できます。",
+    "empty": "受注待ちの任务はありません。",
+    "budget": "予算 {{n}} 万",
+    "claim": "すぐに受注",
+    "claimed": "受注済み",
+    "claimFail": "失敗 — 再試行"
+  },
+  "orderDetail": {
+    "title": "任务の進捗",
+    "notFound": "見つかりません",
+    "backHall": "ホールへ",
+    "backPublish": "もう一枚",
+    "client": "お客様",
+    "worker": "職人",
+    "unassigned": "未割当",
+    "timeline": "ステータス",
+    "created": "作成 {{date}}",
+    "updated": "更新 {{date}}"
+  },
+  "adminOrders": {
+    "menu": "注文審査",
+    "title": "注文審査",
+    "desc": "審査待ち {{count}} · 通過で受注ホールへ",
+    "search": "ID / タイトル / お客様",
+    "colId": "任務 ID",
+    "colTitle": "タイトル",
+    "colTrade": "工種",
+    "colBudget": "予算",
+    "colStatus": "状態",
+    "colClient": "お客様",
+    "colWorker": "職人",
+    "colActions": "操作",
+    "approve": "審査通過",
+    "reject": "却下",
+    "approved": "通過 — 受注待ち",
+    "rejected": "却下済み"
+  },
+  "adminWorkers": {
+    "menu": "職人資格",
+    "title": "職人資格審査",
+    "desc": "認証 / 待ち / 無効",
+    "search": "氏名 / 都市 / 電話 / ID",
+    "colId": "ID",
+    "colName": "氏名",
+    "colTrade": "工種",
+    "colCity": "都市",
+    "colPhone": "電話",
+    "colYears": "年数",
+    "colCert": "審査状態",
+    "colActions": "操作",
+    "verify": "認証する",
+    "markPending": "待ちにする",
+    "disable": "無効",
+    "statusUpdated": "状態を更新しました",
+    "cert": {
+      "verified": "認証済",
+      "pending": "待ち",
+      "disabled": "無効"
+    }
+  },
+  "adminDash": {
+    "desc": "KPI とチャートは注文ストア由来。",
+    "todayNew": "本日の発注",
+    "openJobs": "受注待ち",
+    "inProgress": "進行中",
+    "totalBudget": "予算合計",
+    "budgetUnit": "万",
+    "publishTrend": "直近7日の発注",
+    "publishSeries": "発注数",
+    "statusBreakdown": "状態別（審査待ち {{pending}}）"
   }
 }

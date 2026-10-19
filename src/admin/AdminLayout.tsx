@@ -3,11 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
   ApartmentOutlined,
+  AuditOutlined,
   BarChartOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SettingOutlined,
   TeamOutlined,
+  ToolOutlined,
 } from '@ant-design/icons'
 import { ConfigProvider, Layout, Menu, theme, Typography, Button, Space, Tag } from 'antd'
 import { LanguageSwitcher } from '../components/LanguageSwitcher'
@@ -27,6 +29,8 @@ export function AdminLayout() {
   const menuItems = useMemo(
     () => [
       { key: '/admin/dashboard', icon: <BarChartOutlined />, label: t('admin.dashboard') },
+      { key: '/admin/orders', icon: <AuditOutlined />, label: t('adminOrders.menu') },
+      { key: '/admin/workers', icon: <ToolOutlined />, label: t('adminWorkers.menu') },
       { key: '/admin/cases', icon: <ApartmentOutlined />, label: t('admin.cases') },
       { key: '/admin/designers', icon: <TeamOutlined />, label: t('admin.designers') },
       { key: '/admin/settings', icon: <SettingOutlined />, label: t('admin.settings') },

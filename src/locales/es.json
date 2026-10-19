@@ -32,7 +32,17 @@
     "designers": "Servicios",
     "designersHint": "Confianza y personas",
     "progress": "Mío",
-    "progressHint": "Seguir el avance"
+    "progressHint": "Seguir el avance",
+    "publish": "Publicar",
+    "publishHint": "Cliente",
+    "workerHall": "Sala de trabajos",
+    "workerHint": "Obreros",
+    "myOrders": "Mis trabajos",
+    "myOrdersHint": "Progreso",
+    "role": "Rol",
+    "roleClient": "Cliente",
+    "roleWorker": "Obrero",
+    "roleAdmin": "Admin"
   },
   "footer": {
     "blurb": "Viaje de reforma open-source — cada página responde a una inquietud: por dónde empezar, si es viable, a quién contratar, cómo va.",
@@ -343,5 +353,105 @@
     "showPanel": "Show dashboard",
     "planned": "Plan",
     "actual": "Actual"
+  },
+  "trade": {
+    "plumbing": "Fontanería/elec.",
+    "carpentry": "Carpintería",
+    "painting": "Pintura",
+    "tiling": "Alicatado",
+    "install": "Instalación"
+  },
+  "orderStatus": {
+    "pending_review": "En revisión",
+    "open": "Abierto",
+    "in_progress": "En curso",
+    "completed": "Completado",
+    "rejected": "Rechazado"
+  },
+  "publish": {
+    "title": "Publicar necesidad",
+    "sub": "Describe la tarea. Tras revisión aparece en la sala.",
+    "fieldTitle": "Título",
+    "fieldTitlePh": "ej. Reforma eléctrica dormitorio",
+    "fieldDesc": "Detalles",
+    "fieldDescPh": "Área, materiales, plazos…",
+    "fieldBudget": "Presupuesto (¥10k)",
+    "fieldTrade": "Oficio",
+    "submit": "Enviar a revisión",
+    "success": "Enviado — en revisión",
+    "required": "Completa todos los campos"
+  },
+  "workerHall": {
+    "title": "Sala de trabajos",
+    "sub": "Trabajos aprobados listos para tomar.",
+    "empty": "No hay trabajos abiertos.",
+    "budget": "Presupuesto ¥{{n}}0k",
+    "claim": "Tomar ahora",
+    "claimed": "Tomado",
+    "claimFail": "Falló — reintenta"
+  },
+  "orderDetail": {
+    "title": "Progreso del trabajo",
+    "notFound": "No encontrado",
+    "backHall": "Volver a la sala",
+    "backPublish": "Publicar otro",
+    "client": "Cliente",
+    "worker": "Obrero",
+    "unassigned": "Sin asignar",
+    "timeline": "Línea de tiempo",
+    "created": "Creado {{date}}",
+    "updated": "Actualizado {{date}}"
+  },
+  "adminOrders": {
+    "menu": "Revisión pedidos",
+    "title": "Revisión de pedidos",
+    "desc": "{{count}} pendientes · aprobar → sala",
+    "search": "ID / título / cliente",
+    "colId": "ID",
+    "colTitle": "Título",
+    "colTrade": "Oficio",
+    "colBudget": "Presupuesto",
+    "colStatus": "Estado",
+    "colClient": "Cliente",
+    "colWorker": "Obrero",
+    "colActions": "Acciones",
+    "approve": "Aprobar",
+    "reject": "Rechazar",
+    "approved": "Aprobado — abierto",
+    "rejected": "Rechazado"
+  },
+  "adminWorkers": {
+    "menu": "Cert. obreros",
+    "title": "Certificación de obreros",
+    "desc": "Verificar / pendiente / desactivar",
+    "search": "Nombre / ciudad / tel / ID",
+    "colId": "ID",
+    "colName": "Nombre",
+    "colTrade": "Oficio",
+    "colCity": "Ciudad",
+    "colPhone": "Tel.",
+    "colYears": "Años",
+    "colCert": "Certificación",
+    "colActions": "Acciones",
+    "verify": "Verificar",
+    "markPending": "Pendiente",
+    "disable": "Desactivar",
+    "statusUpdated": "Estado actualizado",
+    "cert": {
+      "verified": "Verificado",
+      "pending": "Pendiente",
+      "disabled": "Desactivado"
+    }
+  },
+  "adminDash": {
+    "desc": "KPI y gráficos desde el store de pedidos.",
+    "todayNew": "Publicados hoy",
+    "openJobs": "Abiertos",
+    "inProgress": "En curso",
+    "totalBudget": "Presupuesto total",
+    "budgetUnit": "×¥10k",
+    "publishTrend": "Publicaciones · 7 días",
+    "publishSeries": "Publicaciones",
+    "statusBreakdown": "Por estado ({{pending}} en revisión)"
   }
 }

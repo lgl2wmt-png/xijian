@@ -32,7 +32,17 @@
     "designers": "الخدمات",
     "designersHint": "ثقة وأشخاص",
     "progress": "خاصتي",
-    "progressHint": "متابعة التقدم"
+    "progressHint": "متابعة التقدم",
+    "publish": "نشر طلب",
+    "publishHint": "عميل",
+    "workerHall": "قاعة المهام",
+    "workerHint": "عمّال",
+    "myOrders": "مهامي",
+    "myOrdersHint": "التقدم",
+    "role": "الدور",
+    "roleClient": "عميل",
+    "roleWorker": "عامل",
+    "roleAdmin": "مدير"
   },
   "footer": {
     "blurb": "رحلة تجديد مفتوحة المصدر — كل صفحة تجيب عن قلق واحد: من أين أبدأ، هل ينجح، من أوظّف، وكيف يسير الأمر.",
@@ -343,5 +353,105 @@
     "showPanel": "Show dashboard",
     "planned": "Plan",
     "actual": "Actual"
+  },
+  "trade": {
+    "plumbing": "سباكة/كهرباء",
+    "carpentry": "نجارة",
+    "painting": "دهان",
+    "tiling": "بلاط",
+    "install": "تركيب"
+  },
+  "orderStatus": {
+    "pending_review": "قيد المراجعة",
+    "open": "مفتوح",
+    "in_progress": "قيد التنفيذ",
+    "completed": "مكتمل",
+    "rejected": "مرفوض"
+  },
+  "publish": {
+    "title": "نشر احتياج",
+    "sub": "صف المهمة. بعد المراجعة تظهر في قاعة العمال.",
+    "fieldTitle": "العنوان",
+    "fieldTitlePh": "مثلاً: تجديد كهرباء غرفة النوم",
+    "fieldDesc": "التفاصيل",
+    "fieldDescPh": "المساحة، المواد، الموعد…",
+    "fieldBudget": "الميزانية (¥10k)",
+    "fieldTrade": "الحرفة",
+    "submit": "إرسال للمراجعة",
+    "success": "أُرسل — بانتظار المراجعة",
+    "required": "أكمل كل الحقول"
+  },
+  "workerHall": {
+    "title": "قاعة المهام",
+    "sub": "مهام معتمدة جاهزة للاستلام.",
+    "empty": "لا مهام مفتوحة الآن.",
+    "budget": "ميزانية ¥{{n}}0k",
+    "claim": "استلم الآن",
+    "claimed": "تم الاستلام",
+    "claimFail": "فشل — أعد المحاولة"
+  },
+  "orderDetail": {
+    "title": "تقدم المهمة",
+    "notFound": "غير موجود",
+    "backHall": "العودة للقاعة",
+    "backPublish": "انشر آخر",
+    "client": "العميل",
+    "worker": "العامل",
+    "unassigned": "غير معيّن",
+    "timeline": "الجدول الزمني",
+    "created": "أُنشئ {{date}}",
+    "updated": "حُدّث {{date}}"
+  },
+  "adminOrders": {
+    "menu": "مراجعة الطلبات",
+    "title": "مراجعة الطلبات",
+    "desc": "{{count}} بانتظار · الموافقة → القاعة",
+    "search": "المعرف / العنوان / العميل",
+    "colId": "المعرف",
+    "colTitle": "العنوان",
+    "colTrade": "الحرفة",
+    "colBudget": "الميزانية",
+    "colStatus": "الحالة",
+    "colClient": "العميل",
+    "colWorker": "العامل",
+    "colActions": "إجراءات",
+    "approve": "موافقة",
+    "reject": "رفض",
+    "approved": "تمت الموافقة — مفتوح",
+    "rejected": "مرفوض"
+  },
+  "adminWorkers": {
+    "menu": "تأهيل العمال",
+    "title": "تأهيل العمال",
+    "desc": "اعتماد / قيد الانتظار / تعطيل",
+    "search": "الاسم / المدينة / الهاتف / المعرف",
+    "colId": "المعرف",
+    "colName": "الاسم",
+    "colTrade": "الحرفة",
+    "colCity": "المدينة",
+    "colPhone": "الهاتف",
+    "colYears": "سنوات",
+    "colCert": "حالة التأهيل",
+    "colActions": "إجراءات",
+    "verify": "اعتماد",
+    "markPending": "قيد الانتظار",
+    "disable": "تعطيل",
+    "statusUpdated": "تم تحديث الحالة",
+    "cert": {
+      "verified": "معتمد",
+      "pending": "قيد الانتظار",
+      "disabled": "معطّل"
+    }
+  },
+  "adminDash": {
+    "desc": "مؤشرات ورسوم من متجر الطلبات.",
+    "todayNew": "منشور اليوم",
+    "openJobs": "مفتوح",
+    "inProgress": "قيد التنفيذ",
+    "totalBudget": "إجمالي الميزانية",
+    "budgetUnit": "×¥10k",
+    "publishTrend": "المنشورات · 7 أيام",
+    "publishSeries": "المنشورات",
+    "statusBreakdown": "حسب الحالة ({{pending}} قيد المراجعة)"
   }
 }

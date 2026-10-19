@@ -32,7 +32,17 @@
     "designers": "서비스",
     "designersHint": "신뢰와 인선",
     "progress": "나의",
-    "progressHint": "진행 추적"
+    "progressHint": "진행 추적",
+    "publish": "요청 게시",
+    "publishHint": "고객",
+    "workerHall": "수주 홀",
+    "workerHint": "기술자",
+    "myOrders": "내 작업",
+    "myOrdersHint": "진행",
+    "role": "역할",
+    "roleClient": "고객",
+    "roleWorker": "기술자",
+    "roleAdmin": "관리자"
   },
   "footer": {
     "blurb": "오픈소스 인테리어 여정 — 각 페이지는 하나의 불안을 답합니다: 어디서 시작할지, 가능한지, 누구에게 맡길지, 어떻게 진행되는지.",
@@ -343,5 +353,105 @@
     "showPanel": "Show dashboard",
     "planned": "Plan",
     "actual": "Actual"
+  },
+  "trade": {
+    "plumbing": "설비",
+    "carpentry": "목공",
+    "painting": "도장",
+    "tiling": "타일",
+    "install": "설치"
+  },
+  "orderStatus": {
+    "pending_review": "검토 대기",
+    "open": "수주 대기",
+    "in_progress": "진행 중",
+    "completed": "완료",
+    "rejected": "거절"
+  },
+  "publish": {
+    "title": "요청 게시",
+    "sub": "작업을 작성하세요. 검토 후 홀에 표시됩니다.",
+    "fieldTitle": "제목",
+    "fieldTitlePh": "예: 침실 설비 리모델링",
+    "fieldDesc": "상세",
+    "fieldDescPh": "면적, 자재, 일정…",
+    "fieldBudget": "예산(만 위안)",
+    "fieldTrade": "직종",
+    "submit": "검토 제출",
+    "success": "제출됨 — 검토 대기",
+    "required": "모든 항목을 입력하세요"
+  },
+  "workerHall": {
+    "title": "수주 홀",
+    "sub": "승인된 작업을 수주할 수 있습니다.",
+    "empty": "열린 작업이 없습니다.",
+    "budget": "예산 {{n}}만",
+    "claim": "바로 수주",
+    "claimed": "수주함",
+    "claimFail": "실패 — 다시 시도"
+  },
+  "orderDetail": {
+    "title": "작업 진행",
+    "notFound": "없음",
+    "backHall": "홀로 돌아가기",
+    "backPublish": "다시 게시",
+    "client": "고객",
+    "worker": "기술자",
+    "unassigned": "미배정",
+    "timeline": "상태 타임라인",
+    "created": "생성 {{date}}",
+    "updated": "업데이트 {{date}}"
+  },
+  "adminOrders": {
+    "menu": "주문 검토",
+    "title": "주문 검토",
+    "desc": "검토 대기 {{count}} · 승인 시 수주 홀",
+    "search": "ID / 제목 / 고객",
+    "colId": "작업 ID",
+    "colTitle": "제목",
+    "colTrade": "직종",
+    "colBudget": "예산",
+    "colStatus": "상태",
+    "colClient": "고객",
+    "colWorker": "기술자",
+    "colActions": "작업",
+    "approve": "승인",
+    "reject": "거절",
+    "approved": "승인됨 — 수주 대기",
+    "rejected": "거절됨"
+  },
+  "adminWorkers": {
+    "menu": "기술자 자격",
+    "title": "기술자 자격 심사",
+    "desc": "인증 / 대기 / 비활성",
+    "search": "이름 / 도시 / 전화 / ID",
+    "colId": "ID",
+    "colName": "이름",
+    "colTrade": "직종",
+    "colCity": "도시",
+    "colPhone": "전화",
+    "colYears": "연차",
+    "colCert": "심사 상태",
+    "colActions": "작업",
+    "verify": "인증",
+    "markPending": "대기로",
+    "disable": "비활성",
+    "statusUpdated": "상태 업데이트됨",
+    "cert": {
+      "verified": "인증됨",
+      "pending": "대기",
+      "disabled": "비활성"
+    }
+  },
+  "adminDash": {
+    "desc": "KPI와 차트는 주문 스토어 기준.",
+    "todayNew": "오늘 게시",
+    "openJobs": "수주 대기",
+    "inProgress": "진행 중",
+    "totalBudget": "총 예산",
+    "budgetUnit": "만",
+    "publishTrend": "최근 7일 게시",
+    "publishSeries": "게시 수",
+    "statusBreakdown": "상태별 (검토 {{pending}})"
   }
 }

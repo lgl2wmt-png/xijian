@@ -32,7 +32,17 @@
     "designers": "Services",
     "designersHint": "Trust & people",
     "progress": "Mine",
-    "progressHint": "Track progress"
+    "progressHint": "Track progress",
+    "publish": "Post job",
+    "publishHint": "Client brief",
+    "workerHall": "Job hall",
+    "workerHint": "Workers",
+    "myOrders": "My jobs",
+    "myOrdersHint": "Progress",
+    "role": "Role",
+    "roleClient": "Client",
+    "roleWorker": "Worker",
+    "roleAdmin": "Admin"
   },
   "footer": {
     "blurb": "Open-source renovation journey — each page answers one anxiety: where to start, whether it works, who to hire, how it’s going.",
@@ -343,5 +353,105 @@
     "showPanel": "Show dashboard",
     "planned": "Plan",
     "actual": "Actual"
+  },
+  "trade": {
+    "plumbing": "MEP",
+    "carpentry": "Carpentry",
+    "painting": "Paint",
+    "tiling": "Tiling",
+    "install": "Install"
+  },
+  "orderStatus": {
+    "pending_review": "Pending review",
+    "open": "Open",
+    "in_progress": "In progress",
+    "completed": "Completed",
+    "rejected": "Rejected"
+  },
+  "publish": {
+    "title": "Post a job",
+    "sub": "Describe the task. After review it appears in the worker hall.",
+    "fieldTitle": "Title",
+    "fieldTitlePh": "e.g. Bedroom MEP remodel",
+    "fieldDesc": "Details",
+    "fieldDescPh": "Area, materials, preferred schedule…",
+    "fieldBudget": "Budget (¥10k)",
+    "fieldTrade": "Trade",
+    "submit": "Submit for review",
+    "success": "Submitted — awaiting review",
+    "required": "Please fill all fields"
+  },
+  "workerHall": {
+    "title": "Job hall",
+    "sub": "Approved jobs ready to claim.",
+    "empty": "No open jobs right now.",
+    "budget": "Budget ¥{{n}}0k",
+    "claim": "Claim now",
+    "claimed": "Claimed",
+    "claimFail": "Claim failed — refresh and retry"
+  },
+  "orderDetail": {
+    "title": "Job progress",
+    "notFound": "Job not found",
+    "backHall": "Back to hall",
+    "backPublish": "Post another",
+    "client": "Client",
+    "worker": "Worker",
+    "unassigned": "Unassigned",
+    "timeline": "Status timeline",
+    "created": "Created {{date}}",
+    "updated": "Updated {{date}}"
+  },
+  "adminOrders": {
+    "menu": "Order review",
+    "title": "Order review",
+    "desc": "{{count}} pending · approve to send to job hall",
+    "search": "Search ID / title / client",
+    "colId": "Job ID",
+    "colTitle": "Title",
+    "colTrade": "Trade",
+    "colBudget": "Budget",
+    "colStatus": "Status",
+    "colClient": "Client",
+    "colWorker": "Worker",
+    "colActions": "Actions",
+    "approve": "Approve",
+    "reject": "Reject",
+    "approved": "Approved — now open",
+    "rejected": "Rejected"
+  },
+  "adminWorkers": {
+    "menu": "Worker certs",
+    "title": "Worker certification",
+    "desc": "Verify / pending / disable workers",
+    "search": "Search name / city / phone / ID",
+    "colId": "ID",
+    "colName": "Name",
+    "colTrade": "Trade",
+    "colCity": "City",
+    "colPhone": "Phone",
+    "colYears": "Years",
+    "colCert": "Certification",
+    "colActions": "Actions",
+    "verify": "Verify",
+    "markPending": "Mark pending",
+    "disable": "Disable",
+    "statusUpdated": "Certification updated",
+    "cert": {
+      "verified": "Verified",
+      "pending": "Pending",
+      "disabled": "Disabled"
+    }
+  },
+  "adminDash": {
+    "desc": "KPIs and charts from live order store (zustand).",
+    "todayNew": "Posted today",
+    "openJobs": "Open jobs",
+    "inProgress": "In progress",
+    "totalBudget": "Total budget",
+    "budgetUnit": "×¥10k",
+    "publishTrend": "Posts · last 7 days",
+    "publishSeries": "Posts",
+    "statusBreakdown": "By status ({{pending}} pending review)"
   }
 }

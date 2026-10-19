@@ -1,24 +1,47 @@
 ﻿import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { useOrderStore } from '../store/orderStore'
 import { LanguageSwitcher } from './LanguageSwitcher'
+import { RoleSwitcher } from './RoleSwitcher'
 
 export function Layout() {
   const { t } = useTranslation()
   const { pathname } = useLocation()
   const isHome = pathname === '/'
   const [menuOpen, setMenuOpen] = useState(false)
+  const role = useOrderStore((s) => s.role)
 
-  const nav = useMemo(
-    () => [
+  const nav = useMemo(() => {
+    const base = [
       { to: '/', label: t('nav.inspire'), hint: t('nav.inspireHint') },
       { to: '/galaxy', label: t('nav.galaxy'), hint: t('nav.galaxyHint') },
       { to: '/cases', label: t('nav.cases'), hint: t('nav.casesHint') },
       { to: '/designers', label: t('nav.designers'), hint: t('nav.designersHint') },
       { to: '/progress', label: t('nav.progress'), hint: t('nav.progressHint') },
-    ],
-    [t],
-  )
+    ]
+    if (role === 'worker') {
+      return [
+        ...base.slice(0, 3),
+        { to: '/worker', label: t('nav.workerHall'), hint: t('nav.workerHint') },
+        { to: '/progress', label: t('nav.myOrders'), hint: t('nav.myOrdersHint') },
+      ]
+    }
+    if (role === 'admin') {
+      return [
+        ...base.slice(0, 2),
+        { to: '/admin', label: t('nav.roleAdmin'), hint: 'Admin' },
+        { to: '/cases', label: t('nav.cases'), hint: t('nav.casesHint') },
+        { to: '/progress', label: t('nav.progress'), hint: t('nav.progressHint') },
+      ]
+    }
+    // client (default)
+    return [
+      ...base.slice(0, 3),
+      { to: '/publish', label: t('nav.publish'), hint: t('nav.publishHint') },
+      { to: '/progress', label: t('nav.progress'), hint: t('nav.progressHint') },
+    ]
+  }, [t, role])
 
   useEffect(() => {
     setMenuOpen(false)
@@ -44,7 +67,7 @@ export function Layout() {
     ].join(' ')
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col overflow-x-hidden">
       <header
         className={`sticky top-0 z-50 transition-colors ${
           isHome
@@ -85,7 +108,10 @@ export function Layout() {
             ))}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <div className="hidden min-w-fit sm:block">
+              <RoleSwitcher variant={isHome ? 'light' : 'dark'} />
+            </div>
             <div className="hidden min-w-fit sm:block">
               <LanguageSwitcher variant={isHome ? 'light' : 'dark'} />
             </div>
@@ -128,7 +154,8 @@ export function Layout() {
               isHome ? 'border-white/10 bg-ink/95' : 'border-mist/40 bg-paper/98'
             }`}
           >
-            <div className="px-4 pt-3 sm:hidden">
+            <div className="flex flex-wrap items-center gap-3 px-4 pt-3 sm:hidden">
+              <RoleSwitcher variant={isHome ? 'light' : 'dark'} />
               <LanguageSwitcher variant={isHome ? 'light' : 'dark'} />
             </div>
             <nav
@@ -153,7 +180,7 @@ export function Layout() {
         )}
       </header>
 
-      <main className="flex-1">
+      <main className="min-w-0 flex-1 overflow-x-hidden">
         <Outlet />
       </main>
 
